@@ -9,7 +9,20 @@
   </head>
   <body>
     <%- include('../partials/header.ejs') %>
-    <main><%- body %></main>
+    <main role="main" class="container">
+      <a href="/user/register">Register</a> |
+
+        <!-- Show 'Logout' and user name if authenticated. -->
+        <%if (reqInfo.authenticated) { %>
+        <a href="/user/logout">Logout</a> [<%= reqInfo.username %>]
+
+        <!-- 'else' must be in separate section with curly brackets to work. -->
+        <% } else { %>
+        <a href="/user/login">Login</a>
+        <% } %>
+
+      <%- body %>
+    </main>
     <%- include('../partials/footer.ejs') %>
   </body>
 </html>
