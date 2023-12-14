@@ -1,0 +1,76 @@
+<% for (let i = 0; i < invoices.length; i++) { %> 
+    <% if (invoices[i].id === invoiceId) { %>
+        <section class="invoiceDetails">
+
+            <header id="invoiceHeader">
+                <img id="logo" src="/images/logo-img.png">
+                <address id="company-info">
+                    <div>Sydnee + Pat Solutions</div>
+                    <div>555 Seymour Street</div>
+                    <div>Vancouver, BC</div>
+                    <div>V6B 3H6</div>
+                    <div>sydandpat@hotmail.com</div>
+                </address>
+                <h2 id="invoiceNumberHeader">Invoice Number: <%= invoices[i].invoiceNumber %></h2>
+            </header>
+
+            <main id="details-container">
+                <div id="view">
+                    <div id="summary">
+                        <div id="client-info">
+                            <h3>Bill To:</h3>
+                            <div><%= invoices[i].invoiceCompanyName.name %></div>
+                            <div><%= invoices[i].invoiceCompanyName.email %></div>
+                            <div id="clientInvoiceId">Invoice Id: <%= invoices[i].id %></div>
+                        </div>
+                        <div id="issue-date">
+                            <div><b>DATE</b></div>
+                            <div> <%= invoices[i].invoiceDate %></div>
+                        </div>
+                        <div id="total-amount">
+                            <div><b>PLEASE PAY</b></div>
+                            <div>$<%= parseFloat(invoices[i].invoiceTotalDue).toFixed(2) %></div>
+                        </div>
+                        <div id="due-date">
+                            <div><b>DUE DATE</b></div>
+                            <div><%= invoices[i].invoiceDueDate %></div>
+                        </div>
+                    </div>
+                    
+                    <div id="billable-details">
+                        <div id="row-details">
+                            <div><b>Product(s)</b></div>
+                            <div><b>Quantity</b></div>
+                            <div><b>Rate</b></div>
+                            <div><b>Amount</b></div>
+                        </div>
+
+                        <% products.forEach (product => { %>
+                            <div id="line-item">
+                                <div><%= product.productName %></div>
+                                <div><%= product.quantity %></div>
+                                <div>$<%= product.unitCost %></div>
+                                <div>$<%= product.quantity * product.unitCost %></div>
+                            </div>
+                        <% }) %>
+                     
+                    </div>
+                    <div id="payment-details">
+                        <div id="payment-method">
+                            Please submit your payment via Interac<br>
+                            E-Transfer to sydandpat@hotmail.com.
+                        </div>
+                        <div id="payment-summary">
+                            <div><b>TOTAL DUE:</b></div>
+                            <div>$<%= parseFloat(invoices[i].invoiceTotalDue).toFixed(2) %></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="back-to-invoices-btn">
+                    <a href="/invoices"><button class="btn btn-primary">Back to Invoices</button></a>
+                </div>
+            </main>
+        </section>
+    <% } %> 
+<% } %> 
+
