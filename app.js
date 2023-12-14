@@ -4,6 +4,10 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const port = process.env.PORT || 3008;
+//requiring passport and passport local
+const passport = require("passport");
+const localStrategy = require("passport-local");
+
 require("dotenv").config();
 
 //set up for the searchbar
@@ -27,6 +31,11 @@ mongoose.connect(uri);
 
 // store a reference to the default connection
 const db = mongoose.connection;
+
+//console log to make sure connection is established
+db.once("open", function(){
+  console.log("Connected to Mongo")
+})
 
 // Bind connection to error event (to get notification of connection errors)
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
@@ -54,6 +63,13 @@ const { profile } = require("console");
 const Profile = require("./models/Product");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//set up session management
+app.use(require("express-session")({
+  secret: "winter break was never the same at this point",
+  resave: false,
+  saveUninitialized: false,
+}))
 
 //express static middleware : making the public folder globally accessible
 app.use(express.static("public"));
