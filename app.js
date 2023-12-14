@@ -94,7 +94,7 @@ app.get("/invoices/search", invoiceController.searchInvoice);
 
 //routes
 app.use("/", indexRouter);
-app.use(userRouter); 
+app.use("/user", userRouter); 
 app.use("/products", productsRouter);
 app.use("/profiles", profilesRouter);
 app.use("/invoices", invoicesRouter);
