@@ -5,7 +5,7 @@ const RequestService = require("../data/RequestService");
 //displays registration form
 exports.Register = async function (req, res){
     let reqInfo = RequestService.reqHelper(req);
-    res.render("user/register", {errorMessage: "", user: {}, reqInfo: reqInfo});
+    res.render("register", {errorMessage: "", user: {}, reqInfo: reqInfo});
 };
 
 //POST with registration form submission
@@ -30,7 +30,7 @@ exports.RegisterUser = async function(req, res){
                 //show registration form with errors if fails
                 if (err){
                     let reqInfo = RequestService.reqHelper(req);
-                    return res.render("user/register", {
+                    return res.render("register", {
                         user: newUser,
                         errorMessage: err,
                         reqInfo: reqInfo,
@@ -44,7 +44,7 @@ exports.RegisterUser = async function(req, res){
         );
     } else {
         let reqInfo = RequestService.reqHelper(req);
-        res.render("user/register", {
+        res.render("register", {
             user: {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
