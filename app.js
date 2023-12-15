@@ -23,6 +23,7 @@ const mongoose = require("mongoose");
 //load indexRouter
 const indexRouter = require("./routers/indexRouter");
 const userRouter = require("./routers/userRouter");
+const secureRouter = require("./routers/secureRouter");
 const productsRouter = require("./routers/productsRouter");
 const profilesRouter = require("./routers/profilesRouter");
 const invoicesRouter = require("./routers/invoicesRouter");
@@ -95,6 +96,7 @@ app.get("/invoices/search", invoiceController.searchInvoice);
 //routes
 app.use("/", indexRouter);
 app.use("/user", userRouter); 
+app.use("/secure", secureRouter);
 app.use("/products", productsRouter);
 app.use("/profiles", profilesRouter);
 app.use("/invoices", invoicesRouter);

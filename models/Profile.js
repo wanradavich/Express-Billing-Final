@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const passportLocalMongoose = require("passport-local-mongoose");
 const profileSchema = new mongoose.Schema({
   
     name: {
@@ -20,6 +21,8 @@ const profileSchema = new mongoose.Schema({
     },
     {collection: "profiles"}
 );
+// profileSchema.plugin(passportLocalMongoose);
+
 const Profile = mongoose.model("Profile", profileSchema);
 
 module.exports = Profile;
