@@ -1,7 +1,4 @@
 const RequestService = require("../data/RequestService");
-// const UserOps = require("../data/UserOps");
-// const _userOps = new UserOps();
-
 
 exports.Index = async function(req, res){
     let reqInfo = RequestService.reqHelper(req);
@@ -13,7 +10,7 @@ exports.Index = async function(req, res){
             reqInfo: reqInfo
         }); 
     } else {
-        res.redirect("login?errorMessage=You must be logged in to view this page.")
+        res.redirect("user/login?errorMessage=You must be logged in to view this page.")
     }
 }
 
