@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Profile = require("./Profile");
 const Product = require("./Product");
+// const passportLocalMongoose = require("passport-local-mongoose");
 
 const invoiceSchema = new mongoose.Schema({
         invoiceName: {
@@ -39,5 +40,6 @@ const invoiceSchema = new mongoose.Schema({
         collection: "invoices"
     }
 );
+// invoiceSchema.plugin(passportLocalMongoose);
 const Invoice = mongoose.model("Invoice", invoiceSchema);
 module.exports = Invoice;

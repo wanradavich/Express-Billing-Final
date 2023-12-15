@@ -22,6 +22,8 @@ const mongoose = require("mongoose");
  const uri = "mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/profiles-db?retryWrites=true&w=majority";
 //load indexRouter
 const indexRouter = require("./routers/indexRouter");
+const userRouter = require("./routers/userRouter");
+const secureRouter = require("./routers/secureRouter");
 const productsRouter = require("./routers/productsRouter");
 const profilesRouter = require("./routers/profilesRouter");
 const invoicesRouter = require("./routers/invoicesRouter");
@@ -39,6 +41,21 @@ db.once("open", function(){
 
 // Bind connection to error event (to get notification of connection errors)
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+//set up session management
+app.use(require("express-session")({
+  secret: "winter break was never the same at this point",
+  resave: false,
+  saveUninitialized: false,
+}));
+
+// Initialize passport and configure for User model
+app.use(passport.initialize());
+app.use(passport.session());
+const User = require("./models/User");
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //tell express where to find templates(views)
 app.set("views", path.join(__dirname, "views"));
@@ -64,12 +81,7 @@ const Profile = require("./models/Product");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//set up session management
-app.use(require("express-session")({
-  secret: "winter break was never the same at this point",
-  resave: false,
-  saveUninitialized: false,
-}))
+
 
 //express static middleware : making the public folder globally accessible
 app.use(express.static("public"));
@@ -83,6 +95,8 @@ app.get("/invoices/search", invoiceController.searchInvoice);
 
 //routes
 app.use("/", indexRouter);
+app.use("/user", userRouter); 
+app.use("/secure", secureRouter);
 app.use("/products", productsRouter);
 app.use("/profiles", profilesRouter);
 app.use("/invoices", invoicesRouter);
