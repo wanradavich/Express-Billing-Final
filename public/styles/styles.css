@@ -512,5 +512,16 @@ input {
   }
 }
 
+.user-login-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 100px;
+}
 
+.body-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
