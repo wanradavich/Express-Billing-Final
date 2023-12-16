@@ -14,11 +14,11 @@
         <div class="user-login-box">
           <!-- Show 'Logout' and user name if authenticated. -->
           <%if (reqInfo.authenticated) { %>
-          <a href="/user/profile">My Profile</a>
+          <a href="/user/userprofile">My Profile</a>
           <% if (reqInfo.roles.includes("Admin")) { %>
-          <a href="/secure/admin">Admin Area</a> | <% } %> <% if
+          <a href="/secure/admin">Admin Area</a>  <% } %> <% if
           (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) {
-          %> <a href="/secure/manager">Manager Area</a> | <% } %> |
+          %> <a href="/secure/manager">Manager Area</a>  <% } %> 
           <a href="/user/logout">Logout</a>
   
           <!-- 'else' must be in separate section with curly brackets to work. -->

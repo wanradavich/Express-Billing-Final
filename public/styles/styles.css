@@ -99,7 +99,7 @@ footer {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  position: fixed;
+  position: relative;
   right: 0;
   bottom: 0; 
   width: 100%;
@@ -107,7 +107,7 @@ footer {
 }
 
 #home-page {
-  margin-top: 2em;
+ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -523,5 +523,9 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.user-login-box a{
+  margin-right: 15px
 }
 
