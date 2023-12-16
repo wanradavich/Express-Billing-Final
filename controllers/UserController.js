@@ -200,24 +200,20 @@ exports.ProfileUpdate = async function(req, res) {
 
 exports.displayInvoices = async function (req, res) {
     let reqInfo = RequestService.reqHelper(req);
-    if (reqInfo.authenticated){
-      console.log("searching for invoice");
-      
-      // Fetch the updated user information
-      let userInfo = await _userOps.getUserByUsername(reqInfo.username);
-      //console log to check user info data passed
-      console.log("USER INFO IN MY INVOICE: ", userInfo);
-      //make the search be the user's first name
-      const searchQuery = userInfo.user.firstName;
-      //console.log to search the query
-      console.log("SEARCH QUERY: ", searchQuery);
-    
+    if (reqInfo.authenticated) {
       try {
-        //search the invoiceOps for the first name set in the query
+        // Fetch the updated user information
+        let userInfo = await _userOps.getUserByUsername(reqInfo.username);
+        const firstName = userInfo.user.firstName;
+        const lastName = userInfo.user.lastName;
+  
+        // Create a regular expression pattern to match both first and last names within invoiceName
+        const searchQuery = new RegExp(`\\b${firstName}\\b.*\\b${lastName}\\b`, "i");
+  
         const invoices = await _invoiceOps.find({
-          invoiceName: { $regex: searchQuery, $options: "i" },
+          invoiceName: searchQuery,
         });
-    
+  
         res.render("my-invoice", {
           title: "My Invoices",
           invoices: invoices,
@@ -227,7 +223,7 @@ exports.displayInvoices = async function (req, res) {
         res.status(500).json({ error: error.message });
       }
     } else {
-      res.redirect("/user/login?errorMessage=You must be logged in to view this page.")
+      res.redirect("/user/login?errorMessage=You must be logged in to view this page.");
     }
   };
-
+  
