@@ -175,3 +175,59 @@ exports.ProfileUpdate = async function(req, res) {
     }
 };
 
+// exports.displayInvoices = async function(req, res) {
+//     let reqInfo = RequestService.reqHelper(req);
+//     if (reqInfo.authenticated) {
+//         console.log('Displaying invoices by invoice name');
+
+//         const invoiceName = req.query.invoiceName; // Get the invoice name from the request
+
+//         try {
+//             const invoices = await _invoiceOps.findInvoicesByInvoiceName(invoiceName);
+
+//             res.render("my-invoice", {
+//                 title: "My Invoices",
+//                 invoices: invoices,
+//                 reqInfo: reqInfo,
+//             });
+//         } catch (error) {
+//             res.status(500).json({ error: error.message });
+//         }
+//     } else {
+//         res.redirect('/user/login?errorMessage=You must be logged in to view this page.');
+//     }
+// };
+
+exports.displayInvoices = async function (req, res) {
+    let reqInfo = RequestService.reqHelper(req);
+    if (reqInfo.authenticated){
+      console.log("searching for invoice");
+      
+      // Fetch the updated user information
+      let userInfo = await _userOps.getUserByUsername(reqInfo.username);
+      //console log to check user info data passed
+      console.log("USER INFO IN MY INVOICE: ", userInfo);
+      //make the search be the user's first name
+      const searchQuery = userInfo.user.firstName;
+      //console.log to search the query
+      console.log("SEARCH QUERY: ", searchQuery);
+    
+      try {
+        //search the invoiceOps for the first name set in the query
+        const invoices = await _invoiceOps.find({
+          invoiceName: { $regex: searchQuery, $options: "i" },
+        });
+    
+        res.render("my-invoice", {
+          title: "My Invoices",
+          invoices: invoices,
+          reqInfo: reqInfo,
+        });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    } else {
+      res.redirect("/user/login?errorMessage=You must be logged in to view this page.")
+    }
+  };
+

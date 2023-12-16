@@ -21,7 +21,7 @@ userRouter.get("/logout", UserController.Logout);
 userRouter.get("/userprofile", UserController.Profile);
 
 //GET my-invoice page
-// userRouter.get("/my-invoice", UserController.UserInvoices);
+userRouter.get("/my-invoice", UserController.displayInvoices);
 
 //GET edit profile page
 userRouter.get("/userprofile-form", UserController.ProfileEdit);
