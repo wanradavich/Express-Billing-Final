@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
+const Invoice = require("../models/Invoice");
 
 const userSchema = mongoose.Schema({
     username: {
@@ -21,7 +22,8 @@ const userSchema = mongoose.Schema({
     },
     roles: {
         type: Array,
-    }
+    },
+    
 });
 //Adding passport-local-mongoose to schema
 userSchema.plugin(passportLocalMongoose);

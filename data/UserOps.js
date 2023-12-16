@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Invoice = require("../models/Invoice");
 
 class UserOps {
     UserData(){}
@@ -33,6 +34,35 @@ class UserOps {
         } else {
             return [];
         }
+    }
+
+    async updateUserByUsername(username, updatedUserInfo){
+        try{
+            const user = await User.findOneAndUpdate(
+                {username: username},
+                {$set: updatedUserInfo},
+                {new: true},
+                );
+                if(user){
+                    const response = {user: user, errorMessage: ""};
+                    return response;
+                } else {
+                    return null;
+                }
+        }catch (error){
+            return {user: null, errorMessage: error.message};
+        }
+    }
+
+    async findUserInvoicesByName(userName){
+        try {
+            const invoices = await Invoice.find({invoiceName: userName});
+            return invoices;
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+        
     }
 
   
