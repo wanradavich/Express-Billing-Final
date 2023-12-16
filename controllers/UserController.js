@@ -76,7 +76,7 @@ exports.Login = async function(req,res){
 exports.LoginUser = (req, res, next) => {
     passport.authenticate("local", {
         successRedirect: "userprofile", 
-        failureRedirect: "user/login?errorMessage=Invalid login.",
+        failureRedirect: "login?errorMessage=Invalid login.",
     })(req, res, next);
 };
 
