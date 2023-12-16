@@ -20,4 +20,13 @@ userRouter.get("/logout", UserController.Logout);
 //GET profile page
 userRouter.get("/userprofile", UserController.Profile);
 
+//GET my-invoice page
+// userRouter.get("/my-invoice", UserController.UserInvoices);
+
+//GET edit profile page
+userRouter.get("/userprofile-form", UserController.ProfileEdit);
+
+//POST edit profile page
+userRouter.post("/userprofile", UserController.ProfileUpdate);
+
 module.exports = userRouter;

@@ -1,0 +1,16 @@
+<main id="myInvoice-page">
+    <div class="header-container">
+      <h1> <%= title %></h1>
+  </div>
+  <div id="list-container">
+    <ul>
+        <% invoices.forEach(invoice => { %>
+          <% if (invoice) { %>
+                <li class="myInvoices">
+                  <a href="/invoices/<%= invoice._id %>"> Invoice #<%= invoice.invoiceNumber %></a>                 
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+  </div>
+  </main>

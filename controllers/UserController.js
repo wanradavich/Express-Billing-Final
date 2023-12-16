@@ -3,6 +3,8 @@ const passport = require("passport");
 const RequestService = require("../data/RequestService");
 const UserOps = require("../data/UserOps");
 const _userOps = new UserOps();
+const InvoiceOps = require("../data/InvoiceOps");
+const _invoiceOps = new InvoiceOps();
 
 //displays registration form
 exports.Register = async function (req, res){
@@ -98,6 +100,7 @@ exports.Logout = (req, res) => {
     })
 }
 
+//user profile display
 exports.Profile = async function(req, res){
     let reqInfo = RequestService.reqHelper(req);
     if (reqInfo.authenticated){
@@ -116,3 +119,59 @@ exports.Profile = async function(req, res){
          res.redirect("/user/login?errorMessage=You must be logged in to view this page.");
     }
 };
+
+// Render the user profile edit form
+exports.ProfileEdit = async function(req, res) {
+    let reqInfo = RequestService.reqHelper(req);
+    if (reqInfo.authenticated) {
+        // Fetch the user's current information to pre-fill the form
+        let userInfo = await _userOps.getUserByUsername(reqInfo.username);
+        console.log("TEST", userInfo);
+        res.render("userprofile-form", {
+            reqInfo: reqInfo,
+            userInfo: userInfo,
+            errorMessage: "",
+        });
+    } else {
+        res.redirect("/user/login?errorMessage=You must be logged in to view this page.");
+    }
+};
+
+// Update the user's profile information
+exports.ProfileUpdate = async function(req, res) {
+    let reqInfo = RequestService.reqHelper(req);
+    if (reqInfo.authenticated) {
+        try {
+            // Collect the updated information from the form
+            const updatedUserInfo = {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                // Add other fields to update as needed
+            };
+
+            // Call the function to update the user's information
+            await _userOps.updateUserByUsername(reqInfo.username, updatedUserInfo);
+
+            // Fetch the updated user information
+            let userInfo = await _userOps.getUserByUsername(reqInfo.username);
+
+            // Render the profile page with updated information
+            res.render("userprofile", {
+                reqInfo: reqInfo,
+                userInfo: userInfo,
+                successMessage: "Profile updated successfully!",
+            });
+        } catch (error) {
+            // Handle any errors that occur during the update process
+            res.render("profileEdit", {
+                reqInfo: reqInfo,
+                userInfo: req.body,
+                errorMessage: "Failed to update profile. Please try again.",
+            });
+        }
+    } else {
+        res.redirect("/user/login?errorMessage=You must be logged in to view this page.");
+    }
+};
+

@@ -5,3 +5,5 @@ Name: <%= userInfo.user.firstName %> <%= userInfo.user.lastName %><br />
 Email: <%= userInfo.user.email %><br />
 
 <% if(reqInfo.roles?.length) { %> Roles: <%= reqInfo.roles %> <% } %>
+
+<a href="/user/userprofile-form" class="btn btn-warning">Edit</a>

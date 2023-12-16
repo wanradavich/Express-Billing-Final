@@ -15,6 +15,7 @@
           <!-- Show 'Logout' and user name if authenticated. -->
           <%if (reqInfo.authenticated) { %>
           <a href="/user/userprofile">My Profile</a>
+          <a href="/user/my-invoice">My Invoices</a>
           <% if (reqInfo.roles.includes("Admin")) { %>
           <a href="/secure/admin">Admin Area</a>  <% } %> <% if
           (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) {
