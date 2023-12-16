@@ -67,7 +67,10 @@
                     </div>
                 </div>
                 <div id="back-to-invoices-btn">
-                    <a href="/invoices"><button class="btn btn-primary">Back to Invoices</button></a>
+                    <% if (reqInfo.roles.includes("Admin")) { %>
+                        <!-- Show the button only if the user has the "Admin" role -->
+                        <a href="/invoices"><button class="btn btn-primary">Back to Invoices</button></a>
+                      <% } %>
                 </div>
             </main>
         </section>

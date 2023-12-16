@@ -74,6 +74,16 @@ class InvoiceOps{
           throw new Error(`Error finding invoices: ${error.message}`);
         }
       }
+
+      // function for userController to find invoices for a user
+      async findInvoicesByInvoiceName(invoiceName) {
+        return await Invoice.find({ 
+            invoiceName: { $regex: new RegExp(invoiceName, 'i') } 
+        });
+    }
+    
+  
+    
 }
 
 module.exports = InvoiceOps;
