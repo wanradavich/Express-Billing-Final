@@ -7,6 +7,11 @@
             <div><strong>Code:</strong> <%= profiles[i].code %></div>
             <div><strong>Company:</strong> <%= profiles[i].company %></div>
             <div><strong>Email:</strong> <%= profiles[i].email %></div>
+            <div><strong>Role:</strong>
+                <% for (let j = 0; j < profiles[i].roles.length; j++) { %>
+                    <%= profiles[i].roles[j] %> <!-- loop through because roles is an array -->
+                <% } %>
+            </div>
         </div>
         <div id="edit">
             <a href="/profiles/edit/<%= profileId %>"><button class="btn btn-warning">Edit</button></a>
@@ -14,5 +19,6 @@
         <div id="back-to-btn">
             <a href="/profiles"><button class="btn btn-primary">Back to Clients</button></a
         </div>
-    <% } %> <% } %>
+        <%}%>
+    <%}%>
 </main>

@@ -17,6 +17,14 @@
             <label for="email">Email:</label>
             <input id="email" name="email" type="text" value=<%= profile.email ? profile.email : '' %> >
         </div>
+        <% if (reqInfo.roles.includes("Admin")) { %>
+            <label for="roles">Role:</label>
+            <select id="roles" name="roles">
+                <option value="Admin" <%= profile.roles === 'Admin' ? 'selected' : '' %>>Admin</option>
+                <option value="Manager" <%= profile.roles === 'Manager' ? 'selected' : '' %>>Manager</option>
+                <option value="User" <%= !['Admin', 'Manager'].includes(profile.roles) ? 'selected' : '' %>>User</option>
+            </select>
+        <% } %>
         <button type="submit" value="Submit" class="btn btn-success">Submit</button>
     </form>
 </div>
