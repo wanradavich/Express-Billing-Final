@@ -4,21 +4,31 @@
 <main>
     <div class="header-container">
         <h1>Products</h1>
+        <% if (reqInfo.roles.includes("Admin")) { %>
         <form action="/products/search" method="GET">
           <input class="searchbar" type="text" name="q" placeholder="Search by product name">
           <button class="btn btn-primary" type="submit">Search</button>
         </form>
+        <% } %>
     </div>
     <div class="header-container">
-        <a class="btn btn-success" href="/products/edit">Add New Product</a> <!--change path name to the one you create if needed-->
+        <% if (reqInfo.roles.includes("Admin")) { %>
+            <a class="btn btn-success" href="/products/edit">Add New Product</a>
+        <% } %>
     </div>
     <div id="list-container">
         <ul>
             <% products.forEach(product => { %>
                 <% if (product && product.productName && product._id) { %>
                     <li class="clientsNames">
-                        <a href="/products/<%= product._id %>"><%= product.productName %></a> 
-                        <a href="/products/<%= product._id%>/delete"><button id="cliDelBtn" class="btn btn-danger">Delete</button></a>
+                        <% if (reqInfo.roles.includes("Admin")) { %>
+                            <a href="/products/<%= product._id %>"><%= product.productName %></a> 
+                            <a href="/products/<%= product._id%>/delete">
+                                <button id="cliDelBtn" class="btn btn-danger">Delete</button>
+                            </a>
+                        <% } else { %>
+                            <span id="manger-products"><%= product.productName %></span> 
+                        <% } %>
                     </li>
                 <% } %>
             <% }) %>

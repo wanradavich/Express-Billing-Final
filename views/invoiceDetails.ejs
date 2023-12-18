@@ -12,6 +12,7 @@
                     <div>sydandpat@hotmail.com</div>
                 </address>
                 <h2 id="invoiceNumberHeader">Invoice Number: <%= invoices[i].invoiceNumber %></h2>
+                <div id="paidStatus" style="display: none;"><b>Paid</b></div>
             </header>
 
             <main id="details-container">
@@ -67,13 +68,32 @@
                     </div>
                 </div>
                 <div id="back-to-invoices-btn">
-                    <% if (reqInfo.roles.includes("Admin")) { %>
+                    <% if (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) { %>
                         <!-- Show the button only if the user has the "Admin" role -->
                         <a href="/invoices"><button class="btn btn-primary">Back to Invoices</button></a>
+                        <button id="paidBtn" class="btn btn-success" onclick="markAsPaid()">Mark Paid</button>
                       <% } %>
                 </div>
             </main>
         </section>
     <% } %> 
 <% } %> 
+<script>
+    function markAsPaid(){
+        const paidStatus = document.getElementById("paidStatus");
+        const paidBtn = document.getElementById("paidBtn");
+        if (paidStatus.style.display === "none"){
+            paidStatus.style.display = "block";
+            paidBtn.textContent = "Mark as Unpaid";
+            paidBtn.classList.remove("btn-success");
+            paidBtn.classList.add("btn-danger");
+            
+        } else {
+            paidStatus.style.display = "none";
+            paidBtn.textContent = "Mark as Paid";
+            paidBtn.classList.remove("btn-danger");
+            paidBtn.classList.add("btn-success");
+        }      
+    }
+</script>
 
