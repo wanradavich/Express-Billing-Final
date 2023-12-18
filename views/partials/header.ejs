@@ -3,13 +3,32 @@
 </head>
 <header>
   <!-- <link rel="stylesheet" href="styles/styles.css"> -->
+  
   <nav id="nav-bar">
     <ul class="horizontal-nav">
-      <!-- Changed this to 3 plain links because Josh said it doesn't need to be dynamic -->
-      <li><a href="/">Home</a></li>
-      <li><a href="/profiles">Clients</a></li>
-      <li><a href="/products">Products</a></li>
-      <li><a href="/invoices">Invoices</a></li>
+      
+      <div class="user-login-box">
+        <!-- Show 'Logout' and user name if authenticated. -->
+        <%if (reqInfo.authenticated) { %>
+          <% if (reqInfo.roles.includes("User")) { %>
+            <a href="/user/userprofile">My Profile</a>
+            <a href="/user/my-invoice">My Invoices</a>
+          <% } %> 
+           
+          <% if (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) {
+          %> <li><a href="/">Home</a></li>
+            <li><a href="/profiles">Clients</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/invoices">Invoices</a></li>  
+          <% } %> 
+          <a href="/user/logout">Logout</a>
+
+          <% } else { %>
+              <a href="/user/register">Register</a> 
+              <a href="/user/login">Login</a>
+          <% } %>
+      </div>
+      
     </ul> 
   </nav>
   

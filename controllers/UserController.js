@@ -175,29 +175,6 @@ exports.ProfileUpdate = async function(req, res) {
     }
 };
 
-// exports.displayInvoices = async function(req, res) {
-//     let reqInfo = RequestService.reqHelper(req);
-//     if (reqInfo.authenticated) {
-//         console.log('Displaying invoices by invoice name');
-
-//         const invoiceName = req.query.invoiceName; // Get the invoice name from the request
-
-//         try {
-//             const invoices = await _invoiceOps.findInvoicesByInvoiceName(invoiceName);
-
-//             res.render("my-invoice", {
-//                 title: "My Invoices",
-//                 invoices: invoices,
-//                 reqInfo: reqInfo,
-//             });
-//         } catch (error) {
-//             res.status(500).json({ error: error.message });
-//         }
-//     } else {
-//         res.redirect('/user/login?errorMessage=You must be logged in to view this page.');
-//     }
-// };
-
 exports.displayInvoices = async function (req, res) {
     let reqInfo = RequestService.reqHelper(req);
     if (reqInfo.authenticated) {
