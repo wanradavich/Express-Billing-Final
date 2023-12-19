@@ -6,6 +6,31 @@ const _userOps = new UserOps();
 const InvoiceOps = require("../data/InvoiceOps");
 const _invoiceOps = new InvoiceOps();
 
+exports.searchUser = async function (req, res) {
+    let reqInfo = RequestService.reqHelper(req);
+    if (reqInfo.authenticated){
+        console.log("searching for user");
+        const searchQuery = req.query.q;
+
+        try {
+            const users = await _userOps.find({
+                username: { $regex: searchQuery, $options: "i" },
+            });
+
+            res.render("userprofiles", {
+                title: "User Search",
+                users: users,
+                reqInfo: reqInfo,
+            });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    } else {
+        res.redirect("/user/login?errorMessage=You must be logged in to view this page.")
+    }
+};
+
+
 //displays registration form
 exports.Register = async function (req, res){
     let reqInfo = RequestService.reqHelper(req);
@@ -135,19 +160,63 @@ exports.UserDetail = async function (request, response) {
   exports.UserEdit = async function (request, response) {
     let reqInfo = RequestService.reqHelper(request);
     if (reqInfo.authenticated){
-      const userId = request.params.id;
-      let userObj = await _userOps.getUserById(UserId);
-      response.render("userprofile-detailsform", {
+        const userId = request.params.id;
+
+        let user = await _userOps.getUserById(userId);
+        console.log("USER ID IN USER EDIT: ", user);
+        response.render("userprofile-detailsform", {
         title: "Edit User Profile",
         errorMessage: "",
         userId: userId,
-        userObj: userObj,
+        user: user,
         reqInfo: reqInfo,
       });
     }else {
       response.redirect("/user/login?errorMessage=You must be logged in to view this page.")
     }
   };
+
+  exports.UserUpdate = async function (request, response) {
+    let reqInfo = RequestService.reqHelper(request);
+    if (reqInfo.authenticated){
+    const userId = request.params.id;
+    let user = await _userOps.getUserById(userId);
+    const userObj = {
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
+      email: request.body.email,
+      username: request.body.username,
+      reqInfo: reqInfo,
+      userId: userId,
+      user: user,
+    };
+  
+    console.log(`This is the user id${userId}`);
+    console.log("USER ROLE IN UPDATE: ", user.roles);
+  
+    let responseObj = await _userOps.updateUserById(userId, userObj);
+  
+    if (responseObj.errorMsg == "") {
+      let users = await _userOps.getAllUsers();
+      response.render("userprofiles", {
+        title: "Users",
+        users: users,
+        reqInfo,
+      });
+    } else {
+      console.log("An error occured. User was not updated.");
+      response.render("userprofile-detailsform", {
+        title: "Edit User Profile",
+        user: responseObj.obj,
+        userId: userId,
+        errorMessage: responseObj.errorMsg,
+        reqInfo: reqInfo,
+      });
+    }
+  } else {
+    response.redirect("/user/login?errorMessage=You must be logged in to view this page.")
+  } 
+};
 
   
 //user profile display

@@ -1,28 +1,26 @@
-<!-- <head>
-    <link rel="stylesheet" href="/styles/styles.css">
-  </head> -->
-  <main id="mainContainer">
-    <div id="header-container">
-      <h1>User</h1>
-      <form id="searchForm" action="/profiles/search" method="GET">
-        <input class="searchbar" type="text" name="q" placeholder="Search by name">
+<main id="user-page">
+    <div class="header-container">
+      <h1> <%= title %></h1>
+      <form action="/user/search" method="GET">
+        <input class="searchbar" type="text" name="q" placeholder="Search by invoice">
         <button class="btn btn-primary" type="submit">Search</button>
       </form>
-      <% if (reqInfo.roles.includes("Admin")) { %>
-      <a id="create-button" href="/user/register"><button id="newUser" class="btn btn-success">Register New User</button></a>
-        <%}%>
-    </div>
-    <div id="list-container">
-      <ul>
-        <% const sortedUsers = users.slice().sort((a, b) => a.username.localeCompare(b.username)); %>
-        <% for (let i = 0; i < sortedUsers.length; i++ ) { %>
-          <li id="usernames">
-            <a href="/user/<%= sortedUsers[i].id %>"><%= sortedUsers[i].username %></a>
-            <% if (reqInfo.roles.includes("Admin")) { %>
-            <a href="/user/<%= sortedUsers[i].id %>/delete"><button id="userDelBtn" class="btn btn-danger">Delete</button></a>
-            <%}%>
-        </li>
-        <% } %>
-      </ul>
-    </div>
+      <div class="header-container">
+        <a class="btn btn-success" href="/user/register">Register New User</a> 
+      </div>
+  </div>
+  <div id="list-container">
+    <ul>
+        <% users.forEach(user => { %>
+          <% if (user && user.id && user.username) { %>
+                <li class="users">
+                  <a href="/user/<%= user.id %>"><%= user.username %></a> 
+                  <% if (reqInfo.roles.includes("Admin")) { %>
+                  <a href="/user/<%= user.id%>/delete"><button id="userDeleteBtn" class="btn btn-danger">Delete</button></a>
+                  <%}%>
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+  </div>
   </main>

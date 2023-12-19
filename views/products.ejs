@@ -4,12 +4,10 @@
 <main>
     <div class="header-container">
         <h1>Products</h1>
-        <% if (reqInfo.roles.includes("Admin")) { %>
         <form action="/products/search" method="GET">
           <input class="searchbar" type="text" name="q" placeholder="Search by product name">
           <button class="btn btn-primary" type="submit">Search</button>
         </form>
-        <% } %>
     </div>
     <div class="header-container">
         <% if (reqInfo.roles.includes("Admin")) { %>
@@ -21,14 +19,12 @@
             <% products.forEach(product => { %>
                 <% if (product && product.productName && product._id) { %>
                     <li class="clientsNames">
-                        <% if (reqInfo.roles.includes("Admin")) { %>
                             <a href="/products/<%= product._id %>"><%= product.productName %></a> 
+                            <% if (reqInfo.roles.includes("Admin")) { %>
                             <a href="/products/<%= product._id%>/delete">
                                 <button id="cliDelBtn" class="btn btn-danger">Delete</button>
                             </a>
-                        <% } else { %>
-                            <span id="manger-products"><%= product.productName %></span> 
-                        <% } %>
+                            <% } %>
                     </li>
                 <% } %>
             <% }) %>

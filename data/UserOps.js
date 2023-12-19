@@ -76,6 +76,21 @@ class UserOps {
         }
     }
 
+    async updateUserById(id, userObj) {
+        console.log(`updating user by id ${id}`);
+        const user = await User.findById(id);
+        for (const key in userObj) {
+          user[key] = userObj[key]
+        }
+        console.log("original user: ", user);
+        let result = await user.save();
+        console.log("updated user: ", result);
+        return {
+          obj: result,
+          errorMsg: "",
+        };
+      }
+
     async findUserInvoicesByName(userName){
         try {
             const invoices = await Invoice.find({invoiceName: userName});
@@ -94,6 +109,14 @@ class UserOps {
         return result;
       }
 
+      async find(query) {
+        try {
+          const users = await User.find(query);
+          return users;
+        } catch (error) {
+          throw new Error(`Error finding products: ${error.message}`);
+        }
+      }
   
 }
 
