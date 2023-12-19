@@ -4,6 +4,17 @@ const Invoice = require("../models/Invoice");
 class UserOps {
     UserData(){}
 
+    async getAllUsers() {
+        try{
+          console.log("fetching all users");
+        const users = await User.find({}).sort({username: 1});
+        return users;
+        } catch (error){
+          console.error("Error fetching users: ", error);
+          throw error;
+        }
+      }
+
     async getUserByEmail(email){
         let user = await User.findOne({email: email});
         if (user){
@@ -13,6 +24,17 @@ class UserOps {
             return null;
         }
     }
+
+    async getUserById(id) {
+        try{
+          console.log("fetching user by id")
+          const user = await User.findById(id);
+          return user;
+        } catch (error){
+          console.error("Error fetching users by id: ", error);
+          throw error;
+        }
+      }
 
     async getUserByUsername(username){
         let user = await User.findOne(
@@ -64,6 +86,13 @@ class UserOps {
         }
         
     }
+
+    async deleteUserById(id) {
+        console.log(`deleting user by id ${id}`);
+        let result = await User.findByIdAndDelete(id);
+        console.log(result);
+        return result;
+      }
 
   
 }

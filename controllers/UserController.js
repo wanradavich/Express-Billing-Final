@@ -23,6 +23,7 @@ exports.RegisterUser = async function(req, res){
             lastName: req.body.lastName,
             email: req.body.email,
             username: req.body.username,
+            role: req.body.role,
         });
         //user passport to register user 
         //pass in user object without password
@@ -38,12 +39,11 @@ exports.RegisterUser = async function(req, res){
                         user: newUser,
                         errorMessage: err,
                         reqInfo: reqInfo,
+                       
                     });
                 }
-                //when user registration is successful, authenticate and redirect to home page
-                passport.authenticate("local")(req, res, function(){
-                    res.redirect("/");
-                });
+                res.redirect("/user/userprofiles");
+              
             }
         );
     } else {
@@ -54,6 +54,7 @@ exports.RegisterUser = async function(req, res){
                 lastName: req.body.lastName,
                 email: req.body.email,
                 username: req.body.username,
+                role: req.body.role,
             },
             errorMessage: "Passwords do not match.",
             reqInfo: reqInfo,
@@ -100,6 +101,55 @@ exports.Logout = (req, res) => {
     })
 }
 
+exports.UserDetail = async function (request, response) {
+    let reqInfo = RequestService.reqHelper(request);
+    if (reqInfo.authenticated){
+      const userId = request.params.id;
+    console.log(`loading single user by id ${userId}`);
+    let user = await _userOps.getUserById(userId);
+    console.log("USER ID IN USER DETAIL: ", user);
+    let users = await _userOps.getAllUsers();
+  
+    if (user) {
+      response.render("userprofile-details", {
+        title: "User Detail - " + user.username,
+        users: users,
+        userId: userId,
+        user: user,
+        layout: "layouts/full-width",
+        reqInfo: reqInfo,
+      });
+    } else {
+      response.render("userprofile-details", {
+        title: "User Detail - " + user.username,
+        users: [],
+        layout: "layouts/full-width",
+        reqInfo: reqInfo,
+      });
+    }
+    } else {
+      response.redirect("/user/login?errorMessage=You must be logged in to view this page.")
+    }
+  };
+
+  exports.UserEdit = async function (request, response) {
+    let reqInfo = RequestService.reqHelper(request);
+    if (reqInfo.authenticated){
+      const userId = request.params.id;
+      let userObj = await _userOps.getUserById(UserId);
+      response.render("userprofile-detailsform", {
+        title: "Edit User Profile",
+        errorMessage: "",
+        userId: userId,
+        userObj: userObj,
+        reqInfo: reqInfo,
+      });
+    }else {
+      response.redirect("/user/login?errorMessage=You must be logged in to view this page.")
+    }
+  };
+
+  
 //user profile display
 exports.Profile = async function(req, res){
     let reqInfo = RequestService.reqHelper(req);
@@ -203,4 +253,58 @@ exports.displayInvoices = async function (req, res) {
       res.redirect("/user/login?errorMessage=You must be logged in to view this page.");
     }
   };
+
+  exports.Users = async function (request, response) {
+    let reqInfo = RequestService.reqHelper(request);
+    if (reqInfo.authenticated){
+      console.log("loading users from controller");
+      let users = await _userOps.getAllUsers();
+      if (users) {
+        response.render("userprofiles", {
+          title: "Users",
+          users: users,
+          layout: "layouts/full-width",
+          reqInfo: reqInfo,
+        });
+      } else {
+        response.render("userprofiles", {
+          title: "Users",
+          users: [],
+          reqInfo: reqInfo,
+        });
+      }
+    }else {
+      response.redirect("/user/login?errorMessage=You must be logged in to view this page.")
+    }
+  };
   
+  // Handle profile form GET request
+exports.DeleteUserById = async function (request, response) {
+    let reqInfo = RequestService.reqHelper(request);
+    if (reqInfo.authenticated){
+      const userId = request.params.id;
+      console.log(`deleting single user by username: ${userId}`);
+      let deletedUser = await _userOps.deleteUserById(userId);
+      let users = await _userOps.getAllUsers();
+    
+      if (deletedUser) {
+        response.render("userprofiles", {
+          title: "Users",
+          users: users,
+          errorMessage: "",
+          layout: "layouts/full-width",
+          reqInfo: reqInfo,
+        });
+      } else {
+        response.render("userprofiles", {
+          title: "Users",
+          users: users,
+          errorMessage: "Error.  Unable to delete user",
+          layout: "layouts/full-width",
+          reqInfo: reqInfo,
+        });
+      }
+    } else {
+      response.redirect("/user/login?errorMessage=You must be logged in to view this page.")
+    }
+  };

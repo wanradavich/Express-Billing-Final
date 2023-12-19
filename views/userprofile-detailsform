@@ -1,0 +1,30 @@
+<main role="main" class="container">
+    <h1>Edit Profile</h1>
+
+    <% if (userId) { %>
+        <form action="/user/userprofile-detailsform" method="POST">
+            <div>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" value="<%= userObj.firstName %>" required>
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" value="<%= userObj.lastName %>" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<%= userObj.email %>" required>
+            </div>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="<%= userObj.username %>" required>
+            </div>
+            <div>
+            </div>
+            <button href="/user/userprofiles" class="btn btn-success" type="submit" value="Submit">Save</button>
+            <a href="/user/userprofiles" class="btn btn-danger">Cancel</a>
+        </form>
+    <% } else { %>
+        <p>No user information available.</p>
+    <% } %>
+</main>

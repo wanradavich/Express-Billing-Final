@@ -1,0 +1,12 @@
+<h1>My Profile</h1>
+<div class="userprofile-box">
+    <p>Username: <%= user.username %></p>
+    <p>Name: <%= user.firstName %> <%= user.lastName %></p>
+    <p>Email: <%= user.email %></p>
+    <% if(reqInfo.roles?.length) { %> 
+        <p>Roles: <%= reqInfo.roles %></p> <% } %>
+</div>
+
+
+<a href="/user/userprofiles" class="btn btn-success">Back to Users</a>
+<a href="/user/userprofile-detailsform" class="btn btn-warning">Edit</a>

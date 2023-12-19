@@ -1,8 +1,12 @@
-const Profile = require("../models/Profile.js");
+const Profile = require("../models/Profile");
+const User = require("../models/User");
 const ProfileOps = require("../data/ProfileOps");
+const UserOps = require("../data/UserOps");
 const RequestService = require("../data/RequestService");
 
+
 const _profileOps = new ProfileOps();
+const _userOps = new UserOps();
 
 exports.searchProfiles = async function(req, res) {
   let reqInfo = RequestService.reqHelper(req);
@@ -209,7 +213,7 @@ exports.DeleteProfileById = async function (request, response) {
   if (reqInfo.authenticated){
     const profileId = request.params.id;
     console.log(`deleting single profile by id ${profileId}`);
-    let deletedProfile = await _profileOps.deleteProfileById(profileId);
+    let deletedProfile = await _profileOps.deleteUserById(profileId);
     let profiles = await _profileOps.getAllProfiles();
   
     if (deletedProfile) {
