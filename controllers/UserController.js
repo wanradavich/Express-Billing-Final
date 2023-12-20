@@ -67,6 +67,7 @@ exports.RegisterUser = async function(req, res){
                        
                     });
                 }
+                //once registered users must log in again to verify identity
                 res.redirect("/user/userprofiles");
               
             }
