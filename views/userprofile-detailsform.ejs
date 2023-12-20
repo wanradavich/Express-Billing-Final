@@ -22,15 +22,15 @@
             <div>
                 <% if (reqInfo.roles.includes("Admin")) { %>
                     <label for="roles">Role:</label>
-                    <select id="roles" name="roles">
-                        <option value="Admin" <%= user.roles === 'Admin' ? 'selected' : '' %>>Admin</option>
-                        <option value="Manager" <%= user.roles === 'Manager' ? 'selected' : '' %>>Manager</option>
-                        <option value="User" <%= !['Admin', 'Manager'].includes(user.roles) ? 'selected' : '' %>>User</option>
+                    <select id="roles" name="roles" >
+                        <option value="User">User</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Admin">Admin</option>
                     </select>
                 <% } %>
             </div>
             
-            <button href="/user/userprofiles" class="btn btn-success" type="submit" value="Submit">Save</button>
+            <button href="/user/userprofiles/<%= userId %>" class="btn btn-success" type="submit" value="Submit">Save</button>
             <a href="/user/userprofiles" class="btn btn-danger">Cancel</a>
         </form>
     <% } else { %>

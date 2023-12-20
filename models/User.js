@@ -21,6 +21,7 @@ const userSchema = mongoose.Schema({
     },
     roles: {
         type: Array,
+
     },  
 });
 //Adding passport-local-mongoose to schema

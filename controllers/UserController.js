@@ -48,7 +48,7 @@ exports.RegisterUser = async function(req, res){
             lastName: req.body.lastName,
             email: req.body.email,
             username: req.body.username,
-            role: req.body.role,
+            roles: req.body.roles || "User",
         });
         //user passport to register user 
         //pass in user object without password
@@ -79,7 +79,7 @@ exports.RegisterUser = async function(req, res){
                 lastName: req.body.lastName,
                 email: req.body.email,
                 username: req.body.username,
-                role: req.body.role,
+                roles: req.body.roles,
             },
             errorMessage: "Passwords do not match.",
             reqInfo: reqInfo,
@@ -161,15 +161,17 @@ exports.UserDetail = async function (request, response) {
     let reqInfo = RequestService.reqHelper(request);
     if (reqInfo.authenticated){
         const userId = request.params.id;
-
         let user = await _userOps.getUserById(userId);
         console.log("USER ID IN USER EDIT: ", user);
+
         response.render("userprofile-detailsform", {
         title: "Edit User Profile",
         errorMessage: "",
         userId: userId,
         user: user,
         reqInfo: reqInfo,
+        // roles: user.roles,
+
       });
     }else {
       response.redirect("/user/login?errorMessage=You must be logged in to view this page.")
@@ -189,6 +191,7 @@ exports.UserDetail = async function (request, response) {
       reqInfo: reqInfo,
       userId: userId,
       user: user,
+      roles: request.body.roles,
     };
   
     console.log(`This is the user id${userId}`);

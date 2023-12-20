@@ -52,11 +52,11 @@
                 <td>Confirm Password:</td>
                 <td><input name="passwordConfirm" type="password"></td>
             </tr>
-            <% if (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) { %>
+            <% if (reqInfo.roles.includes("Admin")) { %>
             <tr>
                 <td>Role:</td>
                 <td>
-                    <select name="role" id="role">
+                    <select name="roles" id="roles">
                         <option value="User">User</option>
                         <option value="Manager">Manager</option>
                         <option value="Admin">Admin</option>
