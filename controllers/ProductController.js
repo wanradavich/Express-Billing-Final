@@ -146,8 +146,8 @@ exports.Edit = async function (request, response) {
 };
 
 exports.EditProduct = async function (request, response) {
-  if (reqInfo.authenticated){
     let reqInfo = RequestService.reqHelper(request);
+    if (reqInfo.authenticated){
     const productId = request.body.product_id;
     const productObj = {
       productName: request.body.productName,
@@ -165,6 +165,7 @@ exports.EditProduct = async function (request, response) {
       response.render("products", {
         title: "Products",
         products: products,
+        reqInfo,
       });
     } else {
       console.log("An error occured. Item was not updated.");

@@ -7,9 +7,11 @@
             <div><strong>Code:</strong> <%= products[i].productCode%></div>
             <div><strong>Cost:</strong> <%= products[i].unitCost%></div>
         </div>
+        <% if (reqInfo.roles.includes("Admin")) { %>
         <div id="edit">
             <a href="/products/edit/<%=products[i]._id%>"><button class="btn btn-warning">Edit</button></a>
         </div>
+        <%}%>
         <div id="back-to-btn">
             <a href="/products"><button class="btn btn-primary">Back to Products</button></a
         </div>

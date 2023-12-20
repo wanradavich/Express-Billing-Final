@@ -1,0 +1,26 @@
+<main id="user-page">
+    <div class="header-container">
+      <h1> <%= title %></h1>
+      <form action="/user/search" method="GET">
+        <input class="searchbar" type="text" name="q" placeholder="Search by invoice">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+      <div class="header-container">
+        <a class="btn btn-success" href="/user/register">Register New User</a> 
+      </div>
+  </div>
+  <div id="list-container">
+    <ul>
+        <% users.forEach(user => { %>
+          <% if (user && user.id && user.username) { %>
+                <li class="users">
+                  <a href="/user/<%= user.id %>"><%= user.username %></a> 
+                  <% if (reqInfo.roles.includes("Admin")) { %>
+                  <a href="/user/<%= user.id%>/delete"><button id="userDeleteBtn" class="btn btn-danger">Delete</button></a>
+                  <%}%>
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+  </div>
+  </main>

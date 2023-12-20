@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("../models/User");
 // const passportLocalMongoose = require("passport-local-mongoose");
 const profileSchema = new mongoose.Schema({
   
@@ -18,10 +19,11 @@ const profileSchema = new mongoose.Schema({
       type: "String",
       required: true,
   },
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  // },
+  roles: {
+    type: Array,
+    required: true,
+  }
+
     },
     {collection: "profiles"}
 );

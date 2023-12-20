@@ -14,6 +14,7 @@ require("dotenv").config();
 const profileController = require("./controllers/ProfileController");
 const productController = require("./controllers/ProductController");
 const invoiceController = require("./controllers/invoiceController");
+const userController = require("./controllers/UserController");
 //declaring mongoose
 const mongoose = require("mongoose");
 
@@ -86,12 +87,11 @@ app.use(bodyParser.json());
 //express static middleware : making the public folder globally accessible
 app.use(express.static("public"));
 
-// Profile search route
+//Search routes
 app.get("/profiles/search", profileController.searchProfiles);
-
-// Product search route
 app.get("/products/search", productController.searchProducts);
 app.get("/invoices/search", invoiceController.searchInvoice);
+app.get("/user/search", userController.searchUser);
 
 //routes
 app.use("/", indexRouter);
@@ -109,22 +109,3 @@ app.all("/*", (req, res) => {
 //start listening to port
 app.listen(port, () => console.log(`app listening on port ${port}!`));
 
-// Once we have our connection, let's load and log our profiles
-// db.once("open", async function () {
-//     const profiles = await getAllProfiles();
-//     console.log("Profiles:", profiles);
-//     db.close();
-// });
-
-// Don't close the connection here
-
-//   async function getAllProfiles() {
-//     let profiles = await Profile.find({});
-//     return profiles;
-//   }
-
-// async function getProfilesById(id){
-//     console.log(`getting profile by id ${id}`);
-//     let profile = await Profile.findById(id);
-//     return profile;
-// }

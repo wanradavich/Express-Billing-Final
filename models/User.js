@@ -21,12 +21,8 @@ const userSchema = mongoose.Schema({
     },
     roles: {
         type: Array,
-    },
-    // profile: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Profile",
-    // },
-    
+
+    },  
 });
 //Adding passport-local-mongoose to schema
 userSchema.plugin(passportLocalMongoose);
