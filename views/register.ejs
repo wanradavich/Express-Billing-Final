@@ -52,7 +52,7 @@
                 <td>Confirm Password:</td>
                 <td><input name="passwordConfirm" type="password"></td>
             </tr>
-            <% if (reqInfo.roles.includes("Admin")) { %>
+            <% if (reqInfo.roles === "Admin" ){ %>
             <tr>
                 <td>Role:</td>
                 <td>
