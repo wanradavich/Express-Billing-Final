@@ -41,13 +41,14 @@ exports.Register = async function (req, res){
 exports.RegisterUser = async function(req, res){
     const password = req.body.password;
     const passwordConfirm = req.body.passwordConfirm;
-    if (password == passwordConfirm){
+    if (password === passwordConfirm){
         //create user object with mongoose model
         const newUser = new User({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
             username: req.body.username,
+            password: req.body.password,
             roles: req.body.roles || "User",
         });
         //user passport to register user 
