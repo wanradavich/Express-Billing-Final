@@ -4,6 +4,7 @@ const Invoice = require("../models/Invoice");
 class UserOps {
     UserData(){}
 
+    //get all users
     async getAllUsers() {
         try{
           console.log("fetching all users");
@@ -15,6 +16,7 @@ class UserOps {
         }
       }
 
+    //get user by email
     async getUserByEmail(email){
         let user = await User.findOne({email: email});
         if (user){
@@ -25,6 +27,7 @@ class UserOps {
         }
     }
 
+    //get user by their id
     async getUserById(id) {
         try{
           console.log("fetching user by id")
@@ -36,6 +39,7 @@ class UserOps {
         }
       }
 
+    //get user by username
     async getUserByUsername(username){
         let user = await User.findOne(
             {username: username},
@@ -49,6 +53,7 @@ class UserOps {
         }
     }
 
+    //get roles by username
     async getRolesByUsername(username){
         let user = await User.findOne({ username: username}, {_id: 0, roles: 1, });
         if (user.roles){
@@ -58,11 +63,16 @@ class UserOps {
         }
     }
 
+    //update user by username (user side)
     async updateUserByUsername(username, updatedUserInfo){
         try{
+          //find one username match
             const user = await User.findOneAndUpdate(
+              //find user by username
                 {username: username},
+                //set new user with updated information
                 {$set: updatedUserInfo},
+                //return upated document
                 {new: true},
                 );
                 if(user){
@@ -76,6 +86,7 @@ class UserOps {
         }
     }
 
+    //update user by Id (admin side)
     async updateUserById(id, userObj) {
         console.log(`updating user by id ${id}`);
         const user = await User.findById(id);
@@ -91,6 +102,7 @@ class UserOps {
         };
       }
 
+    //find user invoice by name (for users to view their invoices in "my-invoice")
     async findUserInvoicesByName(userName){
         try {
             const invoices = await Invoice.find({invoiceName: userName});
@@ -102,6 +114,7 @@ class UserOps {
         
     }
 
+    //delete user by id (admin side)
     async deleteUserById(id) {
         console.log(`deleting user by id ${id}`);
         let result = await User.findByIdAndDelete(id);
@@ -109,7 +122,8 @@ class UserOps {
         return result;
       }
 
-      async find(query) {
+    //find search query 
+    async find(query) {
         try {
           const users = await User.find(query);
           return users;

@@ -1,30 +1,31 @@
 <main role="main" class="container">
-    <h1>Edit Profile</h1>
-
-    <% if (userInfo) { %>
-        <form action="/user/userprofile" method="POST">
-            <div>
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" value="<%= userInfo.user.firstName %>" required>
-            </div>
-            <div>
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" value="<%= userInfo.user.lastName %>" required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<%= userInfo.user.email %>" required>
-            </div>
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="<%= userInfo.user.username %>" required>
-            </div>
-            <div>
-            </div>
-            <button href="/user/userprofile" class="btn btn-success" type="submit" value="Submit">Save</button>
-            <a href="/user/userprofile" class="btn btn-danger">Cancel</a>
-        </form>
-    <% } else { %>
-        <p>No user information available.</p>
-    <% } %>
+    <div>
+        <h2>Edit Profile</h2>
+        <% if (userInfo) { %>
+            <form action="/user/userprofile" method="POST">
+                <div>
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" value="<%= userInfo.user.firstName %>" required>
+                </div>
+                <div>
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" value="<%= userInfo.user.lastName %>" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<%= userInfo.user.email %>" required>
+                </div>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="<%= userInfo.user.username %>" required>
+                </div>
+                <div>
+                </div>
+                <button href="/user/userprofile" class="btn btn-success" type="submit" value="Submit">Save</button>
+                <a href="/user/userprofile" class="btn btn-danger">Cancel</a>
+            </form>
+        <% } else { %>
+            <p>No user information available.</p>
+        <% } %>
+    </div>  
 </main>

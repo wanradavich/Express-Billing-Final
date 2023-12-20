@@ -1,71 +1,76 @@
-<!-- <head>
-    <link rel="stylesheet" href="/styles/styles.css">
-  </head> -->
-<form action="/user/register" method="POST">
-    <table>
-        <tbody>
-            <tr>
-                <td>User Name:</td>
-                <td>
-                    <input 
-                        name="username"
-                        type="text"
-                        value="<%= user.username ? user.username : '' %>" 
-                    />
-                </td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td>
-                    <input 
-                        name="email"
-                        type="text"
-                        value="<%= user.email ? user.email : '' %>"
-                    />
-                </td>
-            </tr>
-            <tr>
-                <td>First Name:</td>
-                <td>
-                    <input 
-                        name="firstName"
-                        type="text"
-                        value="<%= user.firstName ? user.firstName : '' %>"
-                    />
-                </td>
-            </tr>
-            <tr>
-                <td>Last Name:</td>
-                <td>
-                    <input
-                        name="lastName" 
-                        type="text"
-                        value="<%= user.lastName ? user.lastName : '' %>"
-                    />
-                </td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input name="password" type="password"></td>
-            </tr>
-            <tr>
-                <td>Confirm Password:</td>
-                <td><input name="passwordConfirm" type="password"></td>
-            </tr>
-            <% if (reqInfo.roles === "Admin" ){ %>
-            <tr>
-                <td>Role:</td>
-                <td>
-                    <select name="roles" id="roles">
-                        <option value="User">User</option>
-                        <option value="Manager">Manager</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                </td>
-            </tr>
-            <%}%>
-        </tbody>
-    </table>
-    <button class="btn btn-success" type="submit" value="Submit">Register</button>
-</form>
 <%= errorMessage %>
+<main>
+    <div>
+        <img id="logo-img-login" src="/images/logo-img.jpg" alt="logo-image">
+        <form class="register-form" action="/user/register" method="POST">
+            <table>
+                <tbody>
+                    <tr class="login-label">
+                        <td>User Name:</td>
+                        <td>
+                            <input 
+                                name="username"
+                                type="text"
+                                value="<%= user.username ? user.username : '' %>" 
+                            />
+                        </td>
+                    </tr>
+                    <tr class="login-label">
+                        <td>Email:</td>
+                        <td>
+                            <input 
+                                name="email"
+                                type="text"
+                                value="<%= user.email ? user.email : '' %>"
+                            />
+                        </td>
+                    </tr>
+                    <tr class="login-label">
+                        <td>First Name:</td>
+                        <td>
+                            <input 
+                                name="firstName"
+                                type="text"
+                                value="<%= user.firstName ? user.firstName : '' %>"
+                            />
+                        </td>
+                    </tr>
+                    <tr class="login-label">
+                        <td>Last Name:</td>
+                        <td>
+                            <input
+                                name="lastName" 
+                                type="text"
+                                value="<%= user.lastName ? user.lastName : '' %>"
+                            />
+                        </td>
+                    </tr>
+                    <tr class="login-label">
+                        <td>Password:</td>
+                        <td><input name="password" type="password"></td>
+                    </tr>
+                    <tr class="login-label">
+                        <td>Confirm Password:</td>
+                        <td><input name="passwordConfirm" type="password"></td>
+                    </tr>
+                    <% if (reqInfo.roles === "Admin" ){ %>
+                    <tr class="login-label">
+                        <td>Role:</td>
+                        <td>
+                            <select name="roles" id="roles">
+                                <option value="User">User</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <%}%>
+                </tbody>
+                <div class="register-button">
+                    <button class="btn btn-primary" type="submit" value="Submit">Register</button>
+                </div>          
+            </table>
+        </form>
+    </div>
+</main>
+

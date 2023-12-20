@@ -1,26 +1,30 @@
 <%= errorMessage ? errorMessage : "" %>
-
-<form action="/user/login" method="POST">
-    <table>
-      <tbody>
-        <tr>
-          <td>User Name:</td>
-          <td>
-            <input
-              name="username"
-              type="text"
-              value="<%= user.username ? user.username : '' %>"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>Password:</td>
-          <td><input name="password" type="password" /></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><input type="submit" value="Submit" /></td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
+<main>
+  <div>
+    <img id="logo-img-login" src="/images/logo-img.jpg" alt="logo-image">
+    <form class="login-form" action="/user/login" method="POST">
+        <table>
+          <tbody>
+            <tr class="login-label">
+              <td>User Name:</td>
+              <td>
+                <input
+                  name="username"
+                  type="text"
+                  value="<%= user.username ? user.username : '' %>"
+                />
+              </td>
+            </tr>
+            <tr class="login-label">
+              <td>Password:</td>
+              <td><input name="password" type="password" /></td>
+            </tr>
+            <tr class="login-label">
+              <td></td>
+              <td><input id="login-button" class="btn btn-primary" type="submit" value="Submit" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+  </div>
+</main>

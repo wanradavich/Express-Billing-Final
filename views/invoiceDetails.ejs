@@ -1,9 +1,9 @@
 <% for (let i = 0; i < invoices.length; i++) { %> 
     <% if (invoices[i].id === invoiceId) { %>
         <section class="invoiceDetails">
-
+            <div id="paidStatus" style="display: none;"><b>Paid</b></div>
             <header id="invoiceHeader">
-                <img id="logo" src="/images/logo-img.png">
+                <img id="logo" src="/images/logo-img.jpg">
                 <address id="company-info">
                     <div>Sydnee + Pat Solutions</div>
                     <div>555 Seymour Street</div>
@@ -12,7 +12,6 @@
                     <div>sydandpat@hotmail.com</div>
                 </address>
                 <h2 id="invoiceNumberHeader">Invoice Number: <%= invoices[i].invoiceNumber %></h2>
-                <div id="paidStatus" style="display: none;"><b>Paid</b></div>
             </header>
 
             <main id="details-container">
@@ -84,6 +83,7 @@
         const paidBtn = document.getElementById("paidBtn");
         if (paidStatus.style.display === "none"){
             paidStatus.style.display = "block";
+            paidStatus.style.color = "red";
             paidBtn.textContent = "Mark as Unpaid";
             paidBtn.classList.remove("btn-success");
             paidBtn.classList.add("btn-danger");
