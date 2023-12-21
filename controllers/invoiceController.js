@@ -56,6 +56,22 @@ exports.Invoices = async function (request, response) {
     response.redirect("/user/login?errorMessage=You must be logged in to view this page.")
   }  
 };
+
+exports.MarkInvoicePaid = async function (request, response) {
+  const invoiceId = request.params.id;
+  try {
+      const invoice = await Invoice.findById(invoiceId);
+      if (!invoice) {
+          return response.status(404).json({ message: "Invoice not found" });
+      }
+      invoice.paid = !invoice.paid; // Toggle the paid status
+      await invoice.save();
+      console.log("PAID STATUS: ", invoice.paid);
+      return response.status(200).json({ message: "Invoice payment status updated" });
+  } catch (error) {
+      return response.status(500).json({ error: error.message });
+  }
+};
   
   exports.InvoiceDetail = async function (request, response) {
     let reqInfo = RequestService.reqHelper(request);
@@ -64,11 +80,14 @@ exports.Invoices = async function (request, response) {
       console.log(`loading single invoice by id ${invoiceId}`);
       let invoice = await _invoiceOps.getInvoiceById(invoiceId);
       let invoices = await _invoiceOps.getAllInvoices();
+      console.log("INVOICE IS PAID",invoice.paid);
       if (invoice) {
         response.render("invoiceDetails", {
           title: "Express Yourself - " + invoice.invoiceNumber,
           invoices: invoices,
           invoiceId: request.params.id,
+          invoice: invoice,
+          isPaid: invoice.paid,
           layout: "layouts/full-width",
           products: invoice.invoiceProduct,
           reqInfo: reqInfo,

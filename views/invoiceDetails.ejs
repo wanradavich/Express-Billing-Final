@@ -1,20 +1,39 @@
+<div id="back-to-invoices-btn">
+    <% if (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) { %>
+        <!-- Show the button only if the user has the "Admin" role -->
+        <div id="detailsBtnBox">
+            <a href="/invoices"><button class="btn btn-primary">Back to Invoices</button></a>
+            <!--toggle button according to paid/unpaid status-->
+            <% if (invoice.paid) { %>
+                <button class="btn btn-danger" onclick="markAsPaid('<%= invoiceId %>')">Mark as Unpaid</button>
+            <% } else { %>
+                <button class="btn btn-success" onclick="markAsPaid('<%= invoiceId %>')">Mark as Paid</button>
+            <%}%>
+        </div>
+      <% } %>
+</div>
 <% for (let i = 0; i < invoices.length; i++) { %> 
     <% if (invoices[i].id === invoiceId) { %>
         <section class="invoiceDetails">
-            <div id="paidStatus" style="display: none;"><b>Paid</b></div>
+             <!--toggle div according to paid/unpaid status-->
+            <% if (invoice.paid) { %>
+                <p id="paidStatus" style="display: block;"><b>Paid</b></p>
+           <% } else { %>
+                <p id="unpaidStatus" style="display: block;"><b>Unpaid</b></p>
+            <%}%>
             <header id="invoiceHeader">
                 <img id="logo" src="/images/logo-img.jpg">
                 <address id="company-info">
-                    <div>Sydnee + Pat Solutions</div>
+                    <div>BillBird Solutions</div>
                     <div>555 Seymour Street</div>
                     <div>Vancouver, BC</div>
                     <div>V6B 3H6</div>
-                    <div>sydandpat@hotmail.com</div>
+                    <div>billbird@hotmail.com</div>
                 </address>
                 <h2 id="invoiceNumberHeader">Invoice Number: <%= invoices[i].invoiceNumber %></h2>
             </header>
 
-            <main id="details-container">
+            <section id="details-container">
                 <div id="view">
                     <div id="summary">
                         <div id="client-info">
@@ -36,64 +55,66 @@
                             <div><%= invoices[i].invoiceDueDate %></div>
                         </div>
                     </div>
-                    
-                    <div id="billable-details">
-                        <div id="row-details">
-                            <div><b>Product(s)</b></div>
-                            <div><b>Quantity</b></div>
-                            <div><b>Rate</b></div>
-                            <div><b>Amount</b></div>
-                        </div>
-
-                        <% products.forEach (product => { %>
-                            <div id="line-item">
-                                <div><%= product.productName %></div>
-                                <div><%= product.quantity %></div>
-                                <div>$<%= product.unitCost %></div>
-                                <div>$<%= product.quantity * product.unitCost %></div>
-                            </div>
-                        <% }) %>
-                     
-                    </div>
+                    <table id="bill-details">
+                        <thead>
+                            <tr>
+                                <th class="table-left">Products</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% products.forEach(product => { %>
+                                <tr class="line-item">
+                                    <td class="table-left"><%= product.productName %></td>
+                                    <td><%= product.quantity %></td>
+                                    <td>$<%= product.unitCost %></td>
+                                    <td>$<%= product.quantity * product.unitCost %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
                     <div id="payment-details">
                         <div id="payment-method">
                             Please submit your payment via Interac<br>
                             E-Transfer to sydandpat@hotmail.com.
                         </div>
                         <div id="payment-summary">
+                       
                             <div><b>TOTAL DUE:</b></div>
                             <div>$<%= parseFloat(invoices[i].invoiceTotalDue).toFixed(2) %></div>
                         </div>
                     </div>
                 </div>
-                <div id="back-to-invoices-btn">
-                    <% if (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) { %>
-                        <!-- Show the button only if the user has the "Admin" role -->
-                        <a href="/invoices"><button class="btn btn-primary">Back to Invoices</button></a>
-                        <button id="paidBtn" class="btn btn-success" onclick="markAsPaid()">Mark Paid</button>
-                      <% } %>
-                </div>
             </main>
         </section>
     <% } %> 
 <% } %> 
+
+
 <script>
-    function markAsPaid(){
-        const paidStatus = document.getElementById("paidStatus");
-        const paidBtn = document.getElementById("paidBtn");
-        if (paidStatus.style.display === "none"){
-            paidStatus.style.display = "block";
-            paidStatus.style.color = "red";
-            paidBtn.textContent = "Mark as Unpaid";
-            paidBtn.classList.remove("btn-success");
-            paidBtn.classList.add("btn-danger");
-            
-        } else {
-            paidStatus.style.display = "none";
-            paidBtn.textContent = "Mark as Paid";
-            paidBtn.classList.remove("btn-danger");
-            paidBtn.classList.add("btn-success");
-        }      
+   async function markAsPaid(invoiceId) {
+  try {
+    const response = await fetch(`/invoices/${invoiceId}/markPaid`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+        //log check if payment update is successful
+      console.log("Invoice marked as paid successfully");
+      window.location.reload(); // Refresh the page for updated paid status
+    } else {
+        //log check if payment update failed
+      console.error("Failed to mark invoice as paid");
     }
+  } catch (error) {
+    console.error("Error occurred while marking invoice as paid:", error);
+  }
+}
+
 </script>
 

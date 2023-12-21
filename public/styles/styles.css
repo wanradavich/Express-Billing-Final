@@ -52,7 +52,6 @@ ul.horizontal-nav li {
 }
 
 main{
-  margin-top: 30px;
   margin-bottom: 30px;
   margin-left: 10px;
   display: flex;
@@ -313,15 +312,31 @@ input {
   width: 100%;
   margin-bottom: 90px;
 }
+
 #clientInvoiceId {
   font-size: 0.75rem;
 }
-#billable-details {
-  display: flex;
+
+#bill-details {
   width: 100%;
-  font-size: 1rem;
+  font-size: 16px;
   margin-top: 40px;
+  text-align: right;
 }
+
+#detailsBtnBox{
+  display: flex;
+  flex-direction: row;
+}
+
+#detailsBtnBox>button{
+  margin-left: 10px;
+}
+
+.table-left{
+  text-align: left;
+}
+
 #issue-date, #total-amount, #due-date {
   font-size: 0.75rem;
   border: 1px solid black;
@@ -355,7 +370,6 @@ input {
   font-size: 1rem;
 }
 #back-to-invoices-btn {
-  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -452,6 +466,10 @@ input {
   margin-bottom: 20px ;
 }
 
+#payment-summary{
+  text-align: right;
+}
+
 #payment-details {
   display: flex;
   flex-direction: row;
@@ -499,6 +517,18 @@ input {
 .product{
   width: 200px;
   
+}
+
+#paidStatus{
+  color: green;
+  font-size: 25px;
+  text-align: center;
+}
+
+#unpaidStatus{
+  color: rgb(255, 0, 0);
+  font-size: 25px;
+  text-align: center;
 }
 
 /* user styling */
