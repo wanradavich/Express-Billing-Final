@@ -1,10 +1,19 @@
-<h1>My Profile</h1>
+<main>
+    <div id="myprofile-box">
+        <div>
+            <h2 id="my-profile">My Profile</h2>
+        </div>
+        <div>
+            <p><span class="user-lbl">Username: </span><%= userInfo.user.username %></p>
+            <p><span class="user-lbl">Name: </span><%= userInfo.user.firstName %> <%= userInfo.user.lastName %></p>
+            <p><span class="user-lbl">Email: </span><%= userInfo.user.email %></p>
+            <% if(reqInfo.roles?.length) { %> <p><span class="user-lbl">Roles: </span><%= reqInfo.roles %></p> <% } %>
+        </div>
+        <a id="myprofileEdit" href="/user/userprofile-form" class="btn btn-warning">Edit</a>
+    </div>
+</main>
+    
+    
 
-<div>
-    <p>Username: <%= userInfo.user.username %></p>
-    <p>Name: <%= userInfo.user.firstName %> <%= userInfo.user.lastName %></p>
-    <p>Email: <%= userInfo.user.email %></p>
-    <% if(reqInfo.roles?.length) { %> <p>Roles: <%= reqInfo.roles %></p> <% } %>
-</div>
 
-<a href="/user/userprofile-form" class="btn btn-warning">Edit</a>
+

@@ -25,6 +25,7 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
+        //using validator with password field
         validate: {
             validator: function(password) {
                 return passwordSchema.validate(password);
@@ -34,13 +35,14 @@ const userSchema = mongoose.Schema({
     },
     firstName: {
         type: String,
+        required: true,
     },
     lastName: {
         type: String,
+        required: true,
     },
     roles: {
         type: Array,
-
     },  
 });
 //Adding passport-local-mongoose to schema

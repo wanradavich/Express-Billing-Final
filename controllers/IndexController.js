@@ -1,5 +1,6 @@
 const RequestService = require("../data/RequestService");
 
+//rendering home page
 exports.Index = async function (req, res) {
     let reqInfo = RequestService.reqHelper(req);
     return res.render("home", {

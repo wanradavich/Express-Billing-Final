@@ -9,8 +9,12 @@ invoicesRouter.get("/", invoiceController.Invoices);
 invoicesRouter.get("/create", invoiceController.Create);
 invoicesRouter.post("/create", invoiceController.CreateInvoice);
 
+
+//route for markAsPaid 
+invoicesRouter.put("/:id/MarkPaid", invoiceController.MarkInvoicePaid);
 //route for getById
 invoicesRouter.get("/:id", invoiceController.InvoiceDetail);
+
 
 //route for delete
 invoicesRouter.get("/:id/delete", invoiceController.DeleteInvoiceById);

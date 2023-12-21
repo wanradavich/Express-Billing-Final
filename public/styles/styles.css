@@ -1,19 +1,38 @@
-/* html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-} */
-
 body {
   background-image: url("../images/bg-photo.jpg");
 }
   
-  /* Style for horizontal navigation */
-  ul.horizontal-nav li {
+/* Style for horizontal navigation */
+ul.horizontal-nav li {
     display: inline; 
     margin-right: 20px; 
-  }
+}
+
+#logo{
+  height: 150px;
+  width: 150px;
+}
+
+#logo-img{
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  margin-top: 30px;
+}
+
+#logo-img-login{
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+#home-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .form-container{
   margin-top: 20px;
@@ -23,7 +42,8 @@ body {
   display: flex;
   justify-content: left;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 .header-container>h1{
@@ -32,23 +52,19 @@ body {
 }
 
 main{
-  margin-bottom: 100px;
+  margin-bottom: 30px;
   margin-left: 10px;
-  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
 }
 
-footer{
-  margin-left: 10px;
-}
-
-
-/* starting client styling - Kai */
-
- ul {
+/*client styling*/
+ul {
   list-style: none;
  }
 
- #item-list {
+#item-list {
   margin-top: 10px;
   margin-bottom: 10px;
   list-style: none;
@@ -66,11 +82,15 @@ footer{
   text-decoration: none;
 }
 
+.container{
+  margin-bottom: 100px;
+}
 
 header {
-  background-color: #FEC8D8;
+  background-color: #032a2e;
   width: 100%;
-  height: 4rem;
+  height: 100px;
+  padding-top: 20px;
 }
 
 header ul{
@@ -86,35 +106,26 @@ header li {
 
 header a {
   text-decoration: none;
-  color: #957DAD;
+  color: #ffffff;
   transition: color 0.3s;
   font-size: 25px;
 }
 
-header a:hover {
-  color: #3c1361;
-}
+/* header a:hover {
+  color: #fee6e7;
+} */
 
 footer {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  right: 0;
-  bottom: 0; 
   width: 100%;
   padding: 10px;
 }
 
-#home-page {
- 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #home-para {
-  margin-top: 3em;
+  margin-top: 20px;
   text-align: center;
   font-size: 20px;
 }
@@ -144,12 +155,10 @@ footer {
 #create-button {
   margin-top: 20px;
   margin-bottom: 20px;
-
 }
 
 #list-container {
-  display: flex;
-  align-items: center;
+  width: 550px;
 }
 
 #list-container a {
@@ -171,7 +180,7 @@ footer {
 
 #list-container li a {
   text-decoration: none;
-  color: black;
+  color: rgba(0, 0, 0, 0.859);
   transition: color 0.3s;
   font-weight: bold;
 }
@@ -242,7 +251,6 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 
 #form-container form{
@@ -304,15 +312,31 @@ input {
   width: 100%;
   margin-bottom: 90px;
 }
+
 #clientInvoiceId {
   font-size: 0.75rem;
 }
-#billable-details {
-  display: flex;
+
+#bill-details {
   width: 100%;
-  font-size: 1rem;
+  font-size: 16px;
   margin-top: 40px;
+  text-align: right;
 }
+
+#detailsBtnBox{
+  display: flex;
+  flex-direction: row;
+}
+
+#detailsBtnBox>button{
+  margin-left: 10px;
+}
+
+.table-left{
+  text-align: left;
+}
+
 #issue-date, #total-amount, #due-date {
   font-size: 0.75rem;
   border: 1px solid black;
@@ -346,13 +370,11 @@ input {
   font-size: 1rem;
 }
 #back-to-invoices-btn {
-  margin-top: 30px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-} */
-/*end of invoice styling */
+} 
+
 .invoiceDetails {
   width: 700px;
   height: 100%;
@@ -363,6 +385,8 @@ input {
   align-items: stretch;
   justify-content: space-between;
 }
+
+/*end of invoice styling */
 #client-info {
   margin-right: 60px;
 }
@@ -442,6 +466,11 @@ input {
   margin-bottom: 20px ;
 }
 
+#payment-summary{
+  text-align: right;
+  height: 120px;
+}
+
 #payment-details {
   display: flex;
   flex-direction: row;
@@ -491,6 +520,108 @@ input {
   
 }
 
+#paidStatus{
+  color: green;
+  font-size: 25px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+#unpaidStatus{
+  color: rgb(255, 0, 0);
+  font-size: 25px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* user styling */
+
+#searchForm{
+  display: flex;
+  flex-direction: row;
+}
+
+#searchForm>button{
+  margin-left: 15px;
+}
+
+.user-lbl{
+  font-weight: bolder;
+}
+
+.user-login-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+.body-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+  font-size: 18px;
+
+}
+
+.user-login-box a{
+  margin-right: 15px
+}
+
+/* user styling */
+#my-profile{
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+#myprofileEdit{
+  margin-top: 80px;
+  margin-bottom: 20px;
+}
+
+input{
+  width: 250px;
+}
+
+#myprofile-box{
+  background-color: whitesmoke;
+  padding: 10px 200px;
+  border-radius: 20px;
+
+}
+
+.login-label{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#login-button{
+  margin-top: 20px;
+}
+
+.login-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-form{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.register-button{
+  margin-top: 20px;
+}
+
+#reg-logo-box{
+  margin-top: 100px;
+  margin-right: 50px;
+}
+
+
 @media print {
   /* Hide navigation */
   nav {
@@ -506,26 +637,18 @@ input {
     display: none;
   }
 
+  #detailsBtnBox{
+    display: none;
+  }
+
   /* Hide footer */
   footer {
     display: none;
   }
-}
 
-.user-login-box{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 100px;
-}
-
-.body-box{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.user-login-box a{
-  margin-right: 15px
+  @page {
+    size: auto; 
+    margin: 0; /* Remove default margin */
+  }
 }
 

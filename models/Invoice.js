@@ -34,6 +34,10 @@ const invoiceSchema = new mongoose.Schema({
             type: String,
             required: true
         },
+       paid: { //field used to track payment status
+            type: Boolean,
+            default: false, // set default value to false (unpaid)
+       }
 
     },
     {

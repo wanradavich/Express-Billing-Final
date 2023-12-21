@@ -6,6 +6,7 @@ const _userOps = new UserOps();
 const InvoiceOps = require("../data/InvoiceOps");
 const _invoiceOps = new InvoiceOps();
 
+//search for usernames
 exports.searchUser = async function (req, res) {
     let reqInfo = RequestService.reqHelper(req);
     if (reqInfo.authenticated){
@@ -14,7 +15,8 @@ exports.searchUser = async function (req, res) {
 
         try {
             const users = await _userOps.find({
-                username: { $regex: searchQuery, $options: "i" },
+              //regex pattern to search within username field
+                username: { $regex: searchQuery, $options: "i" }, //make search case insensitive
             });
 
             res.render("userprofiles", {
@@ -42,14 +44,14 @@ exports.RegisterUser = async function(req, res){
     const password = req.body.password;
     const passwordConfirm = req.body.passwordConfirm;
     if (password === passwordConfirm){
-        //create user object with mongoose model
+        //create user object with mongoose model for registration
         const newUser = new User({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
             username: req.body.username,
-            password: req.body.password,
-            roles: req.body.roles || "User",
+            password: req.body.password, 
+            roles: req.body.roles || "User", //set deafault role to user
         });
         //user passport to register user 
         //pass in user object without password
@@ -81,7 +83,7 @@ exports.RegisterUser = async function(req, res){
                 lastName: req.body.lastName,
                 email: req.body.email,
                 username: req.body.username,
-                roles: req.body.roles,
+                roles: req.body.roles, 
             },
             errorMessage: "Passwords do not match.",
             reqInfo: reqInfo,
@@ -102,7 +104,7 @@ exports.Login = async function(req,res){
 
 //getting login information, authenticate, and redirect (pass/fail)
 exports.LoginUser = (req, res, next) => {
-    passport.authenticate("local", {
+    passport.authenticate("local", { 
         successRedirect: "userprofile", 
         failureRedirect: "login?errorMessage=Invalid login.",
     })(req, res, next);
@@ -128,6 +130,7 @@ exports.Logout = (req, res) => {
     })
 }
 
+//user detail (admin side)
 exports.UserDetail = async function (request, response) {
     let reqInfo = RequestService.reqHelper(request);
     if (reqInfo.authenticated){
@@ -159,6 +162,7 @@ exports.UserDetail = async function (request, response) {
     }
   };
 
+  //user edit (admin side)
   exports.UserEdit = async function (request, response) {
     let reqInfo = RequestService.reqHelper(request);
     if (reqInfo.authenticated){
@@ -180,6 +184,7 @@ exports.UserDetail = async function (request, response) {
     }
   };
 
+  //user edit (admin side)
   exports.UserUpdate = async function (request, response) {
     let reqInfo = RequestService.reqHelper(request);
     if (reqInfo.authenticated){
@@ -196,8 +201,9 @@ exports.UserDetail = async function (request, response) {
       roles: request.body.roles,
     };
   
+    //checking if data passed is valid and what we want
     console.log(`This is the user id${userId}`);
-    console.log("USER ROLE IN UPDATE: ", user.roles);
+    console.log("user role in update: ", user.roles);
   
     let responseObj = await _userOps.updateUserById(userId, userObj);
   
@@ -224,14 +230,15 @@ exports.UserDetail = async function (request, response) {
 };
 
   
-//user profile display
+//user profile display (user side)
 exports.Profile = async function(req, res){
     let reqInfo = RequestService.reqHelper(req);
     if (reqInfo.authenticated){
         let roles = await _userOps.getRolesByUsername(reqInfo.username);
-        console.log("roles in user controller: ", roles)
+        //check data being passed is valid and what we want
+        console.log("roles in user controller: ", roles) 
         let sessionData = req.session;
-        sessionData.roles = roles;
+        sessionData.roles = roles; // assign role to the session
         reqInfo.roles = roles;
         let userInfo = await _userOps.getUserByUsername(reqInfo.username);
         return res.render("userprofile", {
@@ -250,7 +257,7 @@ exports.ProfileEdit = async function(req, res) {
     if (reqInfo.authenticated) {
         // Fetch the user's current information to pre-fill the form
         let userInfo = await _userOps.getUserByUsername(reqInfo.username);
-        console.log("TEST", userInfo);
+        console.log("user info in profile edit: ", userInfo);
         res.render("userprofile-form", {
             reqInfo: reqInfo,
             userInfo: userInfo,
@@ -263,6 +270,7 @@ exports.ProfileEdit = async function(req, res) {
 
 // Update the user's profile information
 exports.ProfileUpdate = async function(req, res) {
+  //check authentication
     let reqInfo = RequestService.reqHelper(req);
     if (reqInfo.authenticated) {
         try {
@@ -299,6 +307,7 @@ exports.ProfileUpdate = async function(req, res) {
     }
 };
 
+//display user invoice (user side)
 exports.displayInvoices = async function (req, res) {
     let reqInfo = RequestService.reqHelper(req);
     if (reqInfo.authenticated) {
@@ -328,12 +337,15 @@ exports.displayInvoices = async function (req, res) {
     }
   };
 
+  //display all users by username
   exports.Users = async function (request, response) {
+    //authentication
     let reqInfo = RequestService.reqHelper(request);
     if (reqInfo.authenticated){
       console.log("loading users from controller");
       let users = await _userOps.getAllUsers();
       if (users) {
+        //render user profiles page
         response.render("userprofiles", {
           title: "Users",
           users: users,
@@ -352,7 +364,7 @@ exports.displayInvoices = async function (req, res) {
     }
   };
   
-  // Handle profile form GET request
+// delete users 
 exports.DeleteUserById = async function (request, response) {
     let reqInfo = RequestService.reqHelper(request);
     if (reqInfo.authenticated){

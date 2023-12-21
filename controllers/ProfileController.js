@@ -213,7 +213,7 @@ exports.DeleteProfileById = async function (request, response) {
   if (reqInfo.authenticated){
     const profileId = request.params.id;
     console.log(`deleting single profile by id ${profileId}`);
-    let deletedProfile = await _profileOps.deleteUserById(profileId);
+    let deletedProfile = await _profileOps.deleteProfileById(profileId);
     let profiles = await _profileOps.getAllProfiles();
   
     if (deletedProfile) {

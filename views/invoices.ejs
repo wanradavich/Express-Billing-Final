@@ -1,29 +1,28 @@
-<head>
-  <link rel="stylesheet" href="/styles/styles.css">
-</head>
 <main id="invoice-page">
-  <div class="header-container">
-    <h1> <%= title %></h1>
-    <form action="/invoices/search" method="GET">
-      <input class="searchbar" type="text" name="q" placeholder="Search by invoice">
-      <button class="btn btn-primary" type="submit">Search</button>
-    </form>
+  <div>
     <div class="header-container">
-      <a class="btn btn-success" href="/invoices/create">Add New Invoice</a> 
-    </div>
-</div>
-<div id="list-container">
-  <ul>
-      <% invoices.forEach(invoice => { %>
-        <% if (invoice && invoice._id && invoice.invoiceName) { %>
-              <li class="invoices">
-                <a href="/invoices/<%= invoice._id %>"><%= invoice.invoiceName %></a> 
-                <% if (reqInfo.roles.includes("Admin")) { %>
-                <a href="/invoices/<%= invoice._id%>/delete"><button id="invoiceDeleteBtn" class="btn btn-danger">Delete</button></a>
-                <%}%>
-              </li>
-          <% } %>
-      <% }) %>
-  </ul>
-</div>
+      <h1> <%= title %></h1>
+      <form action="/invoices/search" method="GET">
+        <input class="searchbar" type="text" name="q" placeholder="Search by invoice">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+      <div class="header-container">
+        <a class="btn btn-success" href="/invoices/create">Add New Invoice</a> 
+      </div>
+  </div>
+  <div id="list-container">
+    <ul>
+        <% invoices.forEach(invoice => { %>
+          <% if (invoice && invoice._id && invoice.invoiceName) { %>
+                <li class="invoices">
+                  <a href="/invoices/<%= invoice._id %>"><%= invoice.invoiceName %></a> 
+                  <% if (reqInfo.roles.includes("Admin")) { %>
+                  <a href="/invoices/<%= invoice._id%>/delete"><button id="invoiceDeleteBtn" class="btn btn-danger">Delete</button></a>
+                  <%}%>
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+  </div>
+  </div>
 </main>
