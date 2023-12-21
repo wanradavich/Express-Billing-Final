@@ -468,6 +468,7 @@ input {
 
 #payment-summary{
   text-align: right;
+  height: 120px;
 }
 
 #payment-details {
@@ -523,12 +524,14 @@ input {
   color: green;
   font-size: 25px;
   text-align: center;
+  margin-top: 40px;
 }
 
 #unpaidStatus{
   color: rgb(255, 0, 0);
   font-size: 25px;
   text-align: center;
+  margin-top: 40px;
 }
 
 /* user styling */
@@ -634,9 +637,18 @@ input{
     display: none;
   }
 
+  #detailsBtnBox{
+    display: none;
+  }
+
   /* Hide footer */
   footer {
     display: none;
+  }
+
+  @page {
+    size: auto; 
+    margin: 0; /* Remove default margin */
   }
 }
 

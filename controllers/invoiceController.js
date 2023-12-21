@@ -147,7 +147,7 @@ exports.MarkInvoicePaid = async function (request, response) {
         if(request.body["productQuantities[]"][i] != ""){
           product.quantity = request.body["productQuantities[]"][i];
         }
-        totalDue += product.unitCost * product.quantity;
+        totalDue += Math.round(product.unitCost * product.quantity * 100);
         products.push(product);
       }
   

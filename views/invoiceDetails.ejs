@@ -40,7 +40,6 @@
                             <h3>Bill To:</h3>
                             <div><%= invoices[i].invoiceCompanyName.name %></div>
                             <div><%= invoices[i].invoiceCompanyName.email %></div>
-                            <div id="clientInvoiceId">Invoice Id: <%= invoices[i].id %></div>
                         </div>
                         <div id="issue-date">
                             <div><b>DATE</b></div>
@@ -83,7 +82,8 @@
                         <div id="payment-summary">
                        
                             <div><b>TOTAL DUE:</b></div>
-                            <div>$<%= parseFloat(invoices[i].invoiceTotalDue).toFixed(2) %></div>
+                            <!--dividing by 100 with to fixed for results-->
+                            <div>$<%= parseFloat(invoices[i].invoiceTotalDue/100).toFixed(2) %></div>
                         </div>
                     </div>
                 </div>
