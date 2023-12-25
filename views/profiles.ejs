@@ -1,13 +1,11 @@
-<main id="mainContainer">
-  <div class="header-container">
-    <div id="header-container">
+<form class="cat-form" id="searchForm" action="/profiles/search" method="GET">
+    <input class="searchbar" type="text" name="q" placeholder="Search by name">
+    <button class="btn btn-primary" type="submit">🔍</button>
+</form>
+<main>
+  <div>
+    <div class="header-container">
       <h1>Clients</h1>
-      <div>
-        <form id="searchForm" action="/profiles/search" method="GET">
-          <input class="searchbar" type="text" name="q" placeholder="Search by name">
-          <button class="btn btn-primary" type="submit">Search</button>
-        </form>
-      </div>
       <% if (reqInfo.roles.includes("Admin")) { %>
       <a id="create-button" href="/profiles/create"><button id="newcClient" class="btn btn-success">Add New Client</button></a>
         <%}%>
@@ -17,10 +15,13 @@
         <% const sortedProfiles = profiles.slice().sort((a, b) => a.name.localeCompare(b.name)); %>
         <% for (let i = 0; i < sortedProfiles.length; i++ ) { %>
           <li id="clientsNames">
-            <a href="/profiles/<%= sortedProfiles[i].id %>"><%= sortedProfiles[i].name %></a>
             <% if (reqInfo.roles.includes("Admin")) { %>
-            <a href="/profiles/<%= sortedProfiles[i].id %>/delete"><button id="cliDelBtn" class="btn btn-danger">Delete</button></a>
+              <a href="/profiles/<%= sortedProfiles[i].id %>/delete"><button id="cliDelBtn" class="btn btn-danger">⌦</button></a>
             <%}%>
+            <% if (reqInfo.roles.includes("Manager")) { %>
+              <div class="list-bullet">👤</div>
+            <%}%>
+            <a href="/profiles/<%= sortedProfiles[i].id %>"><%= sortedProfiles[i].name %></a>
           </li>
         <% } %>
       </ul>

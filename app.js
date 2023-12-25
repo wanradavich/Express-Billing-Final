@@ -19,9 +19,9 @@ const userController = require("./controllers/UserController");
 const mongoose = require("mongoose");
 
 //mongoose connection string
- //"mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/?retryWrites=true&w=majority"
  const uri = "mongodb+srv://member-A02:PFhtLJ2GXqcHb9jo@billing-a02.xtm7iin.mongodb.net/profiles-db?retryWrites=true&w=majority";
-//load indexRouter
+
+ //load indexRouter
 const indexRouter = require("./routers/indexRouter");
 const userRouter = require("./routers/userRouter");
 const secureRouter = require("./routers/secureRouter");

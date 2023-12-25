@@ -1,28 +1,31 @@
+<form class="cat-form" id="searchForm" action="/user/search" method="GET">
+  <input class="searchbar" type="text" name="q" placeholder="Search by username">
+  <button class="btn btn-primary" type="submit">🔍</button>
+</form>
 <main id="user-page">
   <div>
     <div class="header-container">
       <h1> <%= title %></h1>
-      <form action="/user/search" method="GET">
-        <input class="searchbar" type="text" name="q" placeholder="Search by invoice">
-        <button class="btn btn-primary" type="submit">Search</button>
-      </form>
-      <div class="header-container">
-        <a class="btn btn-success" href="/user/register">Register New User</a> 
+      <div class="sub-head-box">
+        <a class="btn btn-success" href="/user/register">+ New User</a> 
       </div>
-  </div>
-  <div id="list-container">
-    <ul>
+    </div>
+    <div id="list-container">
+      <ul>
         <% users.forEach(user => { %>
           <% if (user && user.id && user.username) { %>
-                <li class="users">
-                  <a href="/user/<%= user.id %>"><%= user.username %></a> 
-                  <% if (reqInfo.roles.includes("Admin")) { %>
-                  <a href="/user/<%= user.id%>/delete"><button id="userDeleteBtn" class="btn btn-danger">Delete</button></a>
-                  <%}%>
-                </li>
+              <li class="users">  
+                <% if (reqInfo.roles.includes("Admin")) { %>
+                  <a href="/user/<%= user.id%>/delete"><button id="userDeleteBtn" class="btn btn-danger">⌦</button></a>
+                <%}%>
+                <% if (reqInfo.roles.includes("Manager")) { %>
+                  <div class="list-bullet">👤</div>
+                <%}%>
+                <a href="/user/<%= user.id %>"><%= user.username %></a> 
+              </li>     
             <% } %>
         <% }) %>
-    </ul>
-  </div>
+      </ul>
+    </div>
   </div>
 </main>
