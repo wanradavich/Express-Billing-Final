@@ -142,7 +142,7 @@ exports.UserDetail = async function (request, response) {
   
     if (user) {
       response.render("userprofile-details", {
-        title: "User Detail - " + user.username,
+        title: "User Detail",
         users: users,
         userId: userId,
         user: user,

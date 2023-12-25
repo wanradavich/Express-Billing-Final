@@ -40,10 +40,14 @@ ul.horizontal-nav li {
 
 .header-container{
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   margin-top: 30px;
   margin-bottom: 10px;
+}
+
+.sub-head-box{
+  margin-right: 20px;
 }
 
 .header-container>h1{
@@ -111,9 +115,9 @@ header a {
   font-size: 25px;
 }
 
-/* header a:hover {
-  color: #fee6e7;
-} */
+header a:hover {
+  color: #dee0e9;
+}
 
 footer {
   display: flex;
@@ -158,12 +162,19 @@ footer {
 }
 
 #list-container {
-  width: 550px;
+  width: 370px;
 }
+
+.cat-form>input{
+  border-radius: 10px;
+  height: 45px;
+  text-align: center;
+}
+
 
 #list-container a {
   font-size: 24px;
-  justify-content: space-between;
+  margin-right: 10px;
 }
 
 #list-container ul {
@@ -173,9 +184,15 @@ footer {
 
 #list-container li {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+
+}
+
+.list-bullet{
+  padding-top: 12px;
+  margin-right: 10px;
 }
 
 #list-container li a {
@@ -619,6 +636,41 @@ input{
 #reg-logo-box{
   margin-top: 100px;
   margin-right: 50px;
+}
+
+.info-content {
+  display: none; /* Initially hide the password info */
+  position: absolute;
+  margin-left: 270px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  width: 400px;
+  z-index: 1;
+}
+
+.info-button:hover + .info-content {
+  display: block; /* Show the info content on button hover */
+}
+
+.details-container{
+  background-color: whitesmoke;
+  padding: 30px 150px;
+  border-radius: 20px;
+}
+
+.btn-box{
+  display: flex;
+  flex-direction: row;
+}
+
+.userprofile-box{
+  margin-top: 50px;
+}
+
+.btn-box>a{
+  margin-right: 15px;
 }
 
 
