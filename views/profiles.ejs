@@ -6,25 +6,39 @@
   <div>
     <div class="header-container">
       <h1>Clients</h1>
-      <% if (reqInfo.roles.includes("Admin")) { %>
-      <a id="create-button" href="/profiles/create"><button id="newcClient" class="btn btn-success">Add New Client</button></a>
+      <div>
+        <% if (reqInfo.roles.includes("Admin")) { %>
+          <a class="create-button" href="/profiles/create"><button id="newcClient" class="btn btn-success">Add New Client</button></a>
         <%}%>
+      </div>
     </div>
-    <div id="list-container">
-      <ul>
-        <% const sortedProfiles = profiles.slice().sort((a, b) => a.name.localeCompare(b.name)); %>
-        <% for (let i = 0; i < sortedProfiles.length; i++ ) { %>
-          <li id="clientsNames">
-            <% if (reqInfo.roles.includes("Admin")) { %>
-              <a href="/profiles/<%= sortedProfiles[i].id %>/delete"><button id="cliDelBtn" class="btn btn-danger">⌦</button></a>
-            <%}%>
-            <% if (reqInfo.roles.includes("Manager")) { %>
-              <div class="list-bullet">👤</div>
-            <%}%>
-            <a href="/profiles/<%= sortedProfiles[i].id %>"><%= sortedProfiles[i].name %></a>
-          </li>
-        <% } %>
-      </ul>
+    <div>
+        <table class="listing-table">
+          <thead class="listing-head">
+            <tr>
+              <th>👤 Client</th>
+              <% if (reqInfo.roles.includes("Admin")) { %>
+                <th id="listing-del">Delete</th>
+              <% } %>
+              <% if (reqInfo.roles.includes("Manager")) { %>
+                <th id="listing-del"></th>
+              <% } %>
+            </tr>
+          </thead>
+          <tbody class="listing-body">
+            <% const sortedProfiles = profiles.slice().sort((a, b) => a.name.localeCompare(b.name)); %>
+            <% for (let i = 0; i < sortedProfiles.length; i++ ) { %>
+            <tr>
+              <td><a href="/profiles/<%= sortedProfiles[i].id %>"><%= sortedProfiles[i].name %></a></td>
+              <td>
+                <% if (reqInfo.roles.includes("Admin")) { %>
+                  <a href="/profiles/<%= sortedProfiles[i].id %>/delete"><button id="cliDelBtn" class="btn btn-danger">⌦</button></a>
+                <%}%>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
     </div>
   </div> 
 </main>

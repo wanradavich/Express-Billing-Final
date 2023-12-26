@@ -17,7 +17,7 @@ exports.searchInvoice = async function (req, res) {
   
     try {
       const invoices = await _invoiceOps.find({
-        invoiceName: { $regex: searchQuery, $options: "i" },
+        invoiceNumber: parseInt(searchQuery),
       });
   
       res.render("invoices", {
@@ -38,6 +38,7 @@ exports.Invoices = async function (request, response) {
   if (reqInfo.authenticated){
     console.log("loading invoices from controller");
     let invoices = await _invoiceOps.getAllInvoices();
+    // console.log("INVOICE NAME: ", invoices.invoiceName);
     if (invoices) {
       response.render("invoices", {
         title: "Invoices",
@@ -158,7 +159,7 @@ exports.MarkInvoicePaid = async function (request, response) {
         invoiceDate: request.body.issueDate,
         invoiceDueDate: request.body.dueDate,
         invoiceTotalDue: totalDue,
-        invoiceName: `Invoice # ${request.body.invoiceNumber} - ${profileObj.name}`,
+        invoiceName: profileObj.name,
         reqInfo: reqInfo,
       });
       

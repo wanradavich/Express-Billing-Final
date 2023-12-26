@@ -8,26 +8,39 @@
             <h1>Products</h1>
              <div>
             <% if (reqInfo.roles.includes("Admin")) { %>
-                <a class="btn btn-success" href="/products/edit">Add New Product</a>
+                <a class="btn btn-success create-button" href="/products/edit">Add New Product</a>
             <% } %>
             </div>
         </div>
-        <div id="list-container">
-            <ul>
-                <% products.forEach(product => { %>
-                    <% if (product && product.productName && product._id) { %>
-                        <li class="clientsNames">
-                            <% if (reqInfo.roles.includes("Admin")) { %>
-                                <a href="/products/<%= product._id%>/delete"><button id="cliDelBtn" class="btn btn-danger">⌦</button></a>
-                            <% } %>
-                            <% if (reqInfo.roles.includes("Manager")) { %>
-                                <div class="list-bullet">▪</div>
-                            <%}%>
-                                <a href="/products/<%= product._id %>"><%= product.productName %></a>   
-                        </li>
-                    <% } %>
-                <% }) %>
-            </ul>
+        <div>                    
+            <table class="listing-table">
+                <thead class="listing-head">
+                    <tr>
+                        <th>Name</th>
+                        <th>Cost</th>
+                        <% if (reqInfo.roles.includes("Admin")) { %>
+                            <th id="listing-del">Delete</th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody class="listing-body">
+                    <% products.forEach(product => { %>
+                        <% if (product && product.productName && product._id) { %>
+                            <tr>
+                                <td><a href="/products/<%= product._id %>"><%= product.productName %></a></td>
+                                <td>$<%= product.unitCost %></td>
+                                <% if (reqInfo.roles.includes("Admin")) { %>
+                                    <td>
+                                        <a href="/products/<%= product._id %>/delete">
+                                            <button id="cliDelBtn" class="btn btn-danger">⌦</button>
+                                        </a>
+                                    </td>
+                                <% } %>
+                            </tr>
+                        <% } %>
+                    <% }) %>
+                </tbody>
+            </table>
         </div>
     </div>
 </main>
