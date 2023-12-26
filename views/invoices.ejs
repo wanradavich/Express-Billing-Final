@@ -1,31 +1,49 @@
 <form class="cat-form" id="searchForm" action="/invoices/search" method="GET">
-  <input class="searchbar" type="text" name="q" placeholder="Search by invoice">
+  <input class="searchbar" type="text" name="q" placeholder="Search by invoice no.">
   <button class="btn btn-primary" type="submit">🔍</button>
 </form>
 <main id="invoice-page">
-  <div>
-    <div class="header-container">
-      <h1> <%= title %></h1>
-      <div class="sub-head-box">
-        <a class="btn btn-success" href="/invoices/create">Add New Invoice</a> 
-      </div>
-  </div>
-  <div id="list-container">
-    <ul>
-        <% invoices.forEach(invoice => { %>
-          <% if (invoice && invoice._id && invoice.invoiceName) { %>
-                <li class="item-list">
-                    <% if (reqInfo.roles.includes("Admin")) { %>
-                      <a href="/invoices/<%= invoice._id%>/delete"><button id="invoiceDeleteBtn" class="btn btn-danger">⌦</button></a>
-                    <%}%>
-                    <% if (reqInfo.roles.includes("Manager")) { %>
-                      <div class="list-bullet">▪</div>
-                  <%}%>
-                  <a href="/invoices/<%= invoice._id %>"><%= invoice.invoiceName %></a>               
-                </li>
-            <% } %>
-        <% }) %>
-    </ul>
+    <div>
+      <div class="header-container">
+        <h1> <%= title %></h1>
+        <div class="sub-head-box">
+          <a class="btn btn-success create-button" href="/invoices/create">Add New Invoice</a> 
+        </div>
+    </div>
+    <div class="table-width">
+      <table class="listing-table">
+        <colgroup>
+          <col style="width: 80px;">
+        </colgroup>
+        <thead class="listing-head">
+            <tr>
+                <th>No.</th>
+                <th>Date</th>
+                <th>Client</th>
+                <% if (reqInfo.roles.includes("Admin")) { %>
+                    <th id="listing-del">Delete</th>
+                <% } %>
+            </tr>
+        </thead>
+        <tbody class="listing-body">
+          <% invoices.sort((a, b) => a.invoiceNumber - b.invoiceNumber).forEach(invoice => { %>
+                <% if (invoice && invoice._id && invoice.invoiceName) { %>
+                    <tr>
+                        <td><a href="/invoices/<%= invoice._id %>"><%= invoice.invoiceNumber %></a></td>
+                        <td  style="white-space: nowrap;"><%= invoice.invoiceDate %></td>
+                        <td  style="white-space: nowrap;"><%= invoice.invoiceName %></td>
+                        <% if (reqInfo.roles.includes("Admin")) { %>
+                            <td>
+                                <a href="/invoices/<%= invoice._id %>/delete">
+                                    <button id="invoiceDeleteBtn" class="btn btn-danger">⌦</button>
+                                </a>
+                            </td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            <% }) %>
+        </tbody>
+    </table>
   </div>
   </div>
 </main>

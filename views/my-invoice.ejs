@@ -1,20 +1,35 @@
 <main id="myInvoice-page">
   <div>
     <div class="header-container">
-      <p>** Name changes may affect your invoice listings.</p>
-      <p>For more information, please contact Admin Services **</p>
-      <h1> <%= title %></h1>
+      <h2> <%= title %></h2>
+      <p id="my-invoice-desc">** Name changes may affect your invoice listings. For more information, please contact Admin Services **</p>
     </div>
-    <div id="list-container">
-      <ul>
+    <div>     
+      <table class="listing-table">
+        <colgroup>
+          <col style="width: 80px;">
+        </colgroup>
+        <thead class="listing-head">
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody class="listing-body">
           <% invoices.forEach(invoice => { %>
             <% if (invoice) { %>
-                  <li class="myInvoices">
-                    <a href="/invoices/<%= invoice._id %>"> Invoice #<%= invoice.invoiceNumber %></a>                 
-                  </li>
-              <% } %>
+          <tr>
+            <td><a href="/invoices/<%= invoice._id %>"><%= invoice.invoiceNumber %></a></td>
+              <td style="white-space: nowrap;"><%= invoice.invoiceName %></td>
+              <td style="white-space: nowrap;"><%= invoice.invoiceDate %></td>
+              <td style="white-space: nowrap;">$<%= (invoice.invoiceTotalDue/100).toFixed(2) %></td>
+            </tr>
+            <% } %>
           <% }) %>
-      </ul>
+        </tbody>
+      </table>
     </div>
   </div>
 </main>
