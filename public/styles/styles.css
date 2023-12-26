@@ -705,6 +705,19 @@ input{
   color: rgb(144, 3, 3);
 }
 
+.det-container{
+  background-color: white;
+  padding: 20px 100px;
+  border-radius: 20px;
+}
+
+.det-container>h2{
+  margin-bottom: 40px;
+
+}
+
+
+
 @media print {
   /* Hide navigation */
   nav {

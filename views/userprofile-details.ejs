@@ -1,11 +1,11 @@
 <div class="details-container">
 <h2><%= title %></h2>
     <div class="userprofile-box">
-        <p>Username: <%= user.username %></p>
-        <p>Name: <%= user.firstName %> <%= user.lastName %></p>
-        <p>Email: <%= user.email %></p>
+        <p><span style="font-weight: bold;">Username:</span> <%= user.username %></p>
+        <p><span style="font-weight: bold;">Name:</span> <%= user.firstName %> <%= user.lastName %></p>
+        <p><span style="font-weight: bold;">Email: </span> <%= user.email %></p>
         <% if(reqInfo.roles?.length) { %> 
-            <p>Roles: <%= user.roles %></p> <% } %>
+            <p><span style="font-weight: bold;">Roles: </span><%= user.roles %></p> <% } %>
     </div>
     <div class="btn-box">
         <a href="/user/userprofile-detailsform/<%= userId %>" class="btn btn-warning">Edit</a>
